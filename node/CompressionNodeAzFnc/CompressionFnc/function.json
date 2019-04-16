@@ -1,0 +1,22 @@
+{
+  "disabled": false,
+  "bindings": [
+    {
+      "type": "eventHubTrigger",
+      "name": "IoTHubMessage",
+      "direction": "in",
+      "eventHubName": "iothub-ehub-skuthishub-616148-4a4b6713aa",
+      "connection": "IoTHubConnectionString",
+      "cardinality": "one",
+      "consumerGroup": "$Default",
+      "dataType": "binary"
+    },
+    {
+      "name": "outputBlob",
+      "type": "blob",
+      "path": "test-out/{rand-guid}.json",
+      "connection": "OriginWebJobs",
+      "direction": "out"      
+    }
+  ]
+}

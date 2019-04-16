@@ -1,0 +1,6 @@
+config/
+.env
+[Bb]in/
+[Oo]bj/
+[Ll]ib/
+package-lock.json

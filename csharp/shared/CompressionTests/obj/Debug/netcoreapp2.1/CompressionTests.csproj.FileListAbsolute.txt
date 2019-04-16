@@ -1,0 +1,17 @@
+C:\src\zFINALCOPY_Working\IoT_Edge_Compression_Solution\csharp\shared\CompressionTests\obj\Debug\netcoreapp2.1\CompressionTests.csprojAssemblyReference.cache
+C:\src\zFINALCOPY_Working\IoT_Edge_Compression_Solution\csharp\shared\CompressionTests\obj\Debug\netcoreapp2.1\CompressionTests.csproj.CoreCompileInputs.cache
+C:\src\zFINALCOPY_Working\IoT_Edge_Compression_Solution\csharp\shared\CompressionTests\obj\Debug\netcoreapp2.1\CompressionTests.AssemblyInfoInputs.cache
+C:\src\zFINALCOPY_Working\IoT_Edge_Compression_Solution\csharp\shared\CompressionTests\obj\Debug\netcoreapp2.1\CompressionTests.AssemblyInfo.cs
+C:\src\zFINALCOPY_Working\IoT_Edge_Compression_Solution\csharp\shared\CompressionTests\bin\Debug\netcoreapp2.1\xunit.runner.visualstudio.dotnetcore.testadapter.dll
+C:\src\zFINALCOPY_Working\IoT_Edge_Compression_Solution\csharp\shared\CompressionTests\bin\Debug\netcoreapp2.1\xunit.runner.reporters.netcoreapp10.dll
+C:\src\zFINALCOPY_Working\IoT_Edge_Compression_Solution\csharp\shared\CompressionTests\bin\Debug\netcoreapp2.1\xunit.runner.utility.netcoreapp10.dll
+C:\src\zFINALCOPY_Working\IoT_Edge_Compression_Solution\csharp\shared\CompressionTests\bin\Debug\netcoreapp2.1\CompressionTests.deps.json
+C:\src\zFINALCOPY_Working\IoT_Edge_Compression_Solution\csharp\shared\CompressionTests\bin\Debug\netcoreapp2.1\CompressionTests.runtimeconfig.json
+C:\src\zFINALCOPY_Working\IoT_Edge_Compression_Solution\csharp\shared\CompressionTests\bin\Debug\netcoreapp2.1\CompressionTests.runtimeconfig.dev.json
+C:\src\zFINALCOPY_Working\IoT_Edge_Compression_Solution\csharp\shared\CompressionTests\bin\Debug\netcoreapp2.1\CompressionTests.dll
+C:\src\zFINALCOPY_Working\IoT_Edge_Compression_Solution\csharp\shared\CompressionTests\bin\Debug\netcoreapp2.1\CompressionTests.pdb
+C:\src\zFINALCOPY_Working\IoT_Edge_Compression_Solution\csharp\shared\CompressionTests\bin\Debug\netcoreapp2.1\Compression.dll
+C:\src\zFINALCOPY_Working\IoT_Edge_Compression_Solution\csharp\shared\CompressionTests\bin\Debug\netcoreapp2.1\Compression.pdb
+C:\src\zFINALCOPY_Working\IoT_Edge_Compression_Solution\csharp\shared\CompressionTests\obj\Debug\netcoreapp2.1\CompressionTests.csproj.CopyComplete
+C:\src\zFINALCOPY_Working\IoT_Edge_Compression_Solution\csharp\shared\CompressionTests\obj\Debug\netcoreapp2.1\CompressionTests.dll
+C:\src\zFINALCOPY_Working\IoT_Edge_Compression_Solution\csharp\shared\CompressionTests\obj\Debug\netcoreapp2.1\CompressionTests.pdb
