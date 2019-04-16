@@ -26,6 +26,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include=".\shared\Compression\Compression.csproj" />
+    <ProjectReference Include="..\..\..\shared\Compression\Compression.csproj" />
   </ItemGroup>
 </Project>
