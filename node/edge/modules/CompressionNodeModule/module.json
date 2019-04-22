@@ -2,7 +2,6 @@
     "$schema-version": "0.0.1",
     "description": "",
     "image": {
-        "contextPath" : "../..",
         "repository": "$COMPRESSION_MODULE_REGISTRY",
         "tag": {
             "version": "0.0.1",
@@ -13,7 +12,8 @@
                 "arm32v7.debug": "./Dockerfile.arm32v7.debug"
             }
         },
-        "buildOptions": []
+        "buildOptions": [],
+        "contextPath" : "../../../"
     },
     "language": "javascript"
 }

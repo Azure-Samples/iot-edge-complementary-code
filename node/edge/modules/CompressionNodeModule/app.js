@@ -3,8 +3,8 @@
 const Transport = require('azure-iot-device-mqtt').Mqtt;
 const Client    = require('azure-iot-device').ModuleClient;
 const Message   = require('azure-iot-device').Message;
-const compressMessage = require('./compress-message.js').compressMessage;
-const decompressMessage = require('./compress-message.js').decompressMessage;
+const compressMessage = require('../../../shared/compress-message.js').compressMessage;
+const decompressMessage = require('../../../shared/compress-message.js').decompressMessage;
 
 /*
 compressMessage and decompressMessage are the routes for the deployment JSON
