@@ -1,3 +1,8 @@
 {
-    "python.pythonPath": "C:\\Program Files\\Python37\\venv\\azureiottut\\Scripts\\python.exe"
+  "python.pythonPath": "C:\\Program Files\\Python37\\venv\\azureiottut\\Scripts\\python.exe",
+  "azureFunctions.projectRuntime": "~2",
+  "azureFunctions.projectLanguage": "C#",
+  "azureFunctions.deploySubpath": "bin/Release/netcoreapp2.1/publish",
+  "azureFunctions.preDeployTask": "publish",
+  "debug.internalConsoleOptions": "neverOpen"
 }
