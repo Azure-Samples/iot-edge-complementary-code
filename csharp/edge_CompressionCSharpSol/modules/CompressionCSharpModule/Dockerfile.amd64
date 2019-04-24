@@ -1,7 +1,8 @@
 FROM microsoft/dotnet:2.1-sdk AS build-env
 
-COPY /shared/Compression /shared/Compression
-COPY /edge_CompressionCSharpSol/modules/CompressionCSharpModule /edge_CompressionCSharpSol/modules/CompressionCSharpModule
+COPY / /
+#COPY /shared/Compression /shared/Compression
+#COPY /edge_CompressionCSharpSol/modules/CompressionCSharpModule /edge_CompressionCSharpSol/modules/CompressionCSharpModule
 RUN dotnet restore /shared/Compression
 
 RUN dotnet restore /edge_CompressionCSharpSol/modules/CompressionCSharpModule

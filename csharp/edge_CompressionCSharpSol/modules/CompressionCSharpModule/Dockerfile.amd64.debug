@@ -12,8 +12,7 @@ FROM microsoft/dotnet:2.1-sdk AS build-env
 
 COPY / /
 RUN dotnet restore /shared/Compression
-RUN dotnet restore /shared/CompressionTests
-
+#RUN dotnet restore /shared/CompressionTests
 #RUN dotnet test /shared/CompressionTests/CompressionTests.csproj
 
 RUN dotnet restore /edge_CompressionCSharpSol/modules/CompressionCSharpModule
