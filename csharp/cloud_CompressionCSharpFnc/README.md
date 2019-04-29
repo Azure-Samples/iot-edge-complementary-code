@@ -24,6 +24,10 @@ The `ModuleDataCompression.cs` file is identical to the one found within the IoT
 
     The `launch.json` file has the necessary information to run the debug experience in VS Code.
 
+    Cloud Deployment:
+    To deploy to Azure you must have a functionapp.  It is easiest to use the VS Code Azure Functions extension to do this.  If you prefer the command line with Azure Functions Core Tools, this article provides the steps to take: https://docs.microsoft.com/en-us/azure/azure-functions/functions-create-first-azure-function-azure-cli .
+    In VS Code within the Azure Functions extension, right-click on your subscription and select 'Create Function App.'  After entering that, you must run this command `func azure functionapp publish <Name of your function app> --publish-local-settings`.  If you use the deploy button in the Azure Functions extension, it will not publish local settings and you will not write data to blob storage.
+
 3.  Version
 
     Current & released version is 0.0.1 which includes complementary logic to process a compressed IoT Edge message with CompressionCSharpFnc.cs

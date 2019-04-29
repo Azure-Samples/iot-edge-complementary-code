@@ -6,9 +6,14 @@ Azure IoT Hub
 Azure IoT Edge
 Docker
 VS Code (optional - although this README is written from the perspective of it installed)
-VS Code Azure IoT Edge Extension (??)
+VS Code Azure IoT Extension
 
 The Azure IoT Edge tutorial covers installation and configuration of these products.
+https://docs.microsoft.com/en-us/azure/iot-edge/tutorial-develop-for-linux
+
+Notes: 
+You can use the simulator which comes in the VS Code extension rather than deploying to a Linux machine.
+You can use localhost instead of Docker CE to build and push the images to.
 
 Description
 
@@ -22,5 +27,8 @@ Since the compression and decompression code is used both by the Edge and Cloud 
 4) In the CompressionCSharpModule folder, each Dockerfile has been modified to COPY the entire directory that is not ignored by the Dockerfile and build the project.  The primary difference between this and the default Dockerfile can be observed by comparing with the same Dockerfile extension (.amd64, .amd64.debug) in the FilterCSharpModule folder.
 5) This provides a model for testing the package code that is separated out from the modules and function code.  When this was only an IoT Edge Solution, the CompressionCSharpTests\ folder existed within the modules\ folder alongside the CompressionCSharpModule\ folder and had to be excluded with a .dockerignore file.  This makes it more straightforward to integrate with a package manager.
 
-IoT Edge Input Handler Pattern
+Environment Variables
+The .env.temp file is used as a placeholder for the values for your project.  After filling in the values, remove the .temp extension so you only have .env.  The pattern used here allows you to store environment variables in one place without having them directly listed in the deployment templates and module.json files.  For example in the Compression Module, the module.json file contains $COMPRESSION_MODULE_REGISTRY which gets replaced with the value in the .env file.  In normal setup, that would have the actual value you have entered for your module.  Since this is a shared repository, I have opted for placeholders.  This pattern may be useful  in sharing other modules which you develop later.  
 
+VS Code Azure IoT Tools Simulator
+For the majority of this project, I used the simulator on my local device to send information to the cloud.  This helps keep costs down as you will not need a VM acting as a device.  It also enables you to get the log messages easily.  To use the simulator, right-click on one of the deployment JSON files and select 'Build and Run IoT Edge Solution in Simulator.' 
