@@ -12,12 +12,12 @@
       "protocol": "inspector"
     },
     {
-      "name": "CompressionNodeModule Remote Debug (Node.js)",
+      "name": "CompressionModule Remote Debug (Node.js)",
       "type": "node",
       "request": "attach",
       "port": 9229,
       "address": "localhost",
-      "localRoot": "${workspaceRoot}/modules/CompressionNodeModule",
+      "localRoot": "${workspaceRoot}/../",
       "remoteRoot": "/app",
       "protocol": "inspector"
     },    
@@ -33,10 +33,10 @@
       }
     },
     {
-      "name": "CompressionNodeModule Local Debug (Node.js)",
+      "name": "CompressionModule Local Debug (Node.js)",
       "type": "node",
       "request": "launch",
-      "program": "${workspaceRoot}/modules/CompressionNodeModule/app.js",
+      "program": "${workspaceRoot}/modules/CompressionModule/app.js",
       "console": "integratedTerminal",
       "env": {
         "EdgeHubConnectionString": "${config:azure-iot-edge.EdgeHubConnectionString}",

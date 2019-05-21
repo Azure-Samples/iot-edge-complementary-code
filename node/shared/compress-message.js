@@ -2,8 +2,8 @@
 
 const zlib = require('zlib');
 
-function compressMessage(msgBody, callback){
-  if(msgBody){
+function compressMessage(msgBody, callback) {
+  if (msgBody) {
     zlib.gzip(msgBody, callback);
   } else {
     //If message is empty, pass through
@@ -11,8 +11,8 @@ function compressMessage(msgBody, callback){
   }
 }
 
-function decompressMessage(msgBody, callback){
-  if(msgBody){
+function decompressMessage(msgBody, callback) {
+  if (msgBody) {
     zlib.gunzip(msgBody, callback);
   } else {
     //If message is empty, pass through

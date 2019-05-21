@@ -2,7 +2,7 @@
     "$schema-version": "0.0.1",
     "description": "",
     "image": {
-        "repository": "$COMPRESSION_MODULE_REGISTRY",
+        "repository": "$CONTAINER_REGISTRY_ADDRESS/compressionmodule-node",
         "tag": {
             "version": "0.0.1",
             "platforms": {

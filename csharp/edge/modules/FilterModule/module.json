@@ -2,7 +2,7 @@
     "$schema-version": "0.0.1",
     "description": "",
     "image": {
-        "repository": "$FILTER_MODULE_REGISTRY",
+        "repository": "CONTAINER_REGISTRY_ADDRESS/filtermodule-csharp",
         "tag": {
             "version": "0.0.1",
             "platforms": {

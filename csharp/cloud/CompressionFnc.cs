@@ -9,11 +9,11 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using ModuleDataCompression;
 
-namespace CompressionCSharpFnc
+namespace CompressionFnc
 {
-    public static class CompressionCSharpFnc
+    public static class CompressionFnc
     {
-        [FunctionName("CompressionCSharpFnc")]
+        [FunctionName("CompressionFnc")]
         public static async Task Run(
             [IoTHubTrigger("messages/events",ConsumerGroup="$Default", Connection = "IoTHubConnectionString")]EventData message,
             [Blob("test-out/{sys.randguid}", FileAccess.Write, Connection="OriginWebJobs")] Stream output,

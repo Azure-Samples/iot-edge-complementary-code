@@ -16,7 +16,7 @@ COPY shared/Compression/*.csproj ../../../shared/Compression/
 COPY edge/modules/CompressionModule/*.csproj ./
 RUN dotnet restore
 
-COPY shared/Compression/ ../../../shared/Compression/
+COPY shared/*.js ../../../shared/
 COPY edge/modules/CompressionModule/ ./
 RUN dotnet publish -c Debug -o ../../../out
 
