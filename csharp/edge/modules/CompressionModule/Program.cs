@@ -9,7 +9,7 @@ using Microsoft.Azure.Devices.Client;
 using Microsoft.Azure.Devices.Client.Transport.Mqtt;
 using DataCompression;
 
-namespace CompressionCSharpModule
+namespace CompressionModule
 {
     public class Program
     {

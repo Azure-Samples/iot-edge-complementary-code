@@ -12,9 +12,8 @@ using System.Collections.Generic;     // For KeyValuePair<>
 using Microsoft.Azure.Devices.Shared; // For TwinCollection
 using Newtonsoft.Json;                // For JsonConvert
 
-namespace FilterCSharpModule
+namespace FilterModule
 {
-
     class Program
     {
         static int counter;
@@ -22,19 +21,19 @@ namespace FilterCSharpModule
 
         class MessageBody
         {
-            public Machine machine {get;set;}
-            public Ambient ambient {get; set;}
-            public string timeCreated {get; set;}
+            public Machine machine { get; set; }
+            public Ambient ambient { get; set; }
+            public string timeCreated { get; set; }
         }
         class Machine
         {
-           public double temperature {get; set;}
-           public double pressure {get; set;}         
+            public double temperature { get; set; }
+            public double pressure { get; set; }
         }
         class Ambient
         {
-           public double temperature {get; set;}
-           public int humidity {get; set;}         
+            public double temperature { get; set; }
+            public int humidity { get; set; }
         }
 
         static void Main(string[] args)
@@ -85,10 +84,10 @@ namespace FilterCSharpModule
                 var messageBytes = message.GetBytes();
                 var messageString = Encoding.UTF8.GetString(messageBytes);
                 Console.WriteLine($"Received message {counterValue}: [{messageString}]");
-        
+
                 // Get the message body.
                 var messageBody = JsonConvert.DeserializeObject<MessageBody>(messageString);
-        
+
                 if (messageBody != null && messageBody.machine.temperature > temperatureThreshold)
                 {
                     Console.WriteLine($"Machine temperature {messageBody.machine.temperature} " +
@@ -98,11 +97,11 @@ namespace FilterCSharpModule
                     {
                         filteredMessage.Properties.Add(prop.Key, prop.Value);
                     }
-        
+
                     filteredMessage.Properties.Add("MessageType", "Alert");
                     await moduleClient.SendEventAsync("output1", filteredMessage);
                 }
-        
+
                 // Indicate that the message treatment is completed.
                 return MessageResponse.Completed;
             }

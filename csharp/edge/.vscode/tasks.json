@@ -7,7 +7,7 @@
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}/CompressionCSharpModuleTests/CompressionCSharpModuleTests.csproj"
+                "${workspaceFolder}/modules/CompressionCSharpModule/CompressionCSharpModule.csproj"
             ],
             "problemMatcher": "$tsc"
         },
@@ -17,7 +17,7 @@
             "type": "process",
             "args": [
                 "publish",
-                "${workspaceFolder}/CompressionCSharpModuleTests/CompressionCSharpModuleTests.csproj"
+                "${workspaceFolder}/modules/CompressionCSharpModule/CompressionCSharpModule.csproj"
             ],
             "problemMatcher": "$tsc"
         },
@@ -28,7 +28,7 @@
             "args": [
                 "watch",
                 "run",
-                "${workspaceFolder}/CompressionCSharpModuleTests/CompressionCSharpModuleTests.csproj"
+                "${workspaceFolder}/modules/CompressionCSharpModule/CompressionCSharpModule.csproj"
             ],
             "problemMatcher": "$tsc"
         }
