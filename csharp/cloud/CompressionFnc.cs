@@ -8,6 +8,7 @@ using System.IO;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using ModuleDataCompression;
+using System;
 
 namespace CompressionFnc
 {
@@ -15,14 +16,23 @@ namespace CompressionFnc
     {
         [FunctionName("CompressionFnc")]
         public static async Task Run(
-            [IoTHubTrigger("messages/events",ConsumerGroup="$Default", Connection = "IoTHubConnectionString")]EventData message,
-            [Blob("test-out/{sys.randguid}", FileAccess.Write, Connection="OriginWebJobs")] Stream output,
+            [IoTHubTrigger("messages/events", ConsumerGroup = "$Default", Connection = "IoTHubConnectionString")]EventData message,
+            [Blob("test-out/{sys.randguid}", FileAccess.Write, Connection = "OriginWebJobs")] Stream output,
             ILogger log)
         {
-            log.LogInformation($"C# IoT Hub trigger function processed a message: {Encoding.UTF8.GetString(message.Body)}");
-            var fncResult = CompressionClass.Decompress(message.Body.ToArray());
-            log.LogInformation($"Decompressed: {Encoding.UTF8.GetString(fncResult)}");  
-            await output.WriteAsync(fncResult, 0, fncResult.Length);
+           
+           
+            if (message.Properties.Contains(new System.Collections.Generic.KeyValuePair<string, object>("compression", "gzip")))
+            {
+                var fncResult = CompressionClass.Decompress(message.Body.ToArray());
+                log.LogInformation($"Decompressed message: {Encoding.UTF8.GetString(fncResult)}");
+                await output.WriteAsync(fncResult, 0, fncResult.Length);
+            }
+            else
+            {
+                log.LogInformation($"Received uncompressed message: {Encoding.UTF8.GetString(message.Body.ToArray())}");
+                await output.WriteAsync(message.Body.ToArray(), 0, message.Body.Count);
+            }
         }
     }
 }

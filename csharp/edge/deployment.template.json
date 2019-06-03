@@ -67,23 +67,23 @@
               "createOptions": {}
             }
           },
-          "FilterCSharpModule": {
+          "FilterModule": {
             "version": "1.0",
             "type": "docker",
             "status": "running",
             "restartPolicy": "always",
             "settings": {
-              "image": "${MODULES.FilterCSharpModule}",
+              "image": "${MODULES.FilterModule}",
               "createOptions": {}
             }
           },
-          "CompressionCSharpModule": {
+          "CompressionModule": {
             "version": "1.0",
             "type": "docker",
             "status": "running",
             "restartPolicy": "always",
             "settings": {
-              "image": "${MODULES.CompressionCSharpModule}",
+              "image": "${MODULES.CompressionModule}",
               "createOptions": {}
             }
           }
@@ -94,9 +94,9 @@
       "properties.desired": {
         "schemaVersion": "1.0",
         "routes": {
-          "sensorToFilterCSharpModule": "FROM /messages/modules/tempSensor/outputs/temperatureOutput INTO BrokeredEndpoint(\"/modules/FilterCSharpModule/inputs/input1\")",
-          "FilterCSharpModuleToCompression": "FROM /messages/modules/FilterCSharpModule/outputs/* INTO BrokeredEndpoint(\"/modules/CompressionCSharpModule/inputs/compressMessage\")",
-          "CompressionToIoTHub": "FROM /messages/modules/CompressionCSharpModule/outputs/compressMessageOutput INTO $upstream"
+          "sensorToFilterModule": "FROM /messages/modules/tempSensor/outputs/temperatureOutput INTO BrokeredEndpoint(\"/modules/FilterModule/inputs/input1\")",
+          "FilterModuleToCompression": "FROM /messages/modules/FilterModule/outputs/* INTO BrokeredEndpoint(\"/modules/CompressionModule/inputs/compressMessage\")",
+          "CompressionToIoTHub": "FROM /messages/modules/CompressionModule/outputs/compressMessageOutput INTO $upstream"
         },
         "storeAndForwardConfiguration": {
           "timeToLiveSecs": 7200

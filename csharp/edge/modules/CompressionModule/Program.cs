@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Microsoft.Azure.Devices.Client;
 using Microsoft.Azure.Devices.Client.Transport.Mqtt;
 using DataCompression;
+using System.Diagnostics;
 
 namespace CompressionModule
 {
@@ -38,8 +39,15 @@ namespace CompressionModule
         /// Initializes the ModuleClient and sets up the callback to receive
         /// messages containing temperature information
         /// </summary>
-        static async Task Init()
+        static async Task Init(bool debug = false)
         {
+#if DEBUG            
+            while (debug && !Debugger.IsAttached)
+            {
+                Console.WriteLine("Module waiting for debugger to attach...");
+                await Task.Delay(1000);
+            };
+#endif
             MqttTransportSettings mqttSetting = new MqttTransportSettings(TransportType.Mqtt_Tcp_Only);
             ITransportSettings[] settings = { mqttSetting };
 
@@ -63,13 +71,15 @@ namespace CompressionModule
             var moduleClient = userContext as ModuleClient;
             if (moduleClient == null)
             {
-                throw new InvalidOperationException("UserContext doesn't contain " + "expected values");
+                throw new InvalidOperationException("UserContext doesn't contain expected values");
             }
+
+            await moduleClient.CompleteAsync(message);
 
             byte[] messageBytes = message.GetBytes(); //returns the BodyStream of the message as bytes
 
-            Console.WriteLine($"Received message. Body: [{Encoding.UTF8.GetString(messageBytes)}]. Body Size: [{messageBytes.Length}]");
-            
+            Console.WriteLine($"Received message with body size: {messageBytes.Length}");
+
             if (messageBytes.Length > 0)
             {
                 var compressedMessageData = CompressionClass.Compress(messageBytes);
@@ -78,15 +88,23 @@ namespace CompressionModule
                 {
                     outMessage.Properties.Add(prop.Key, prop.Value);
                 }
+                outMessage.Properties.Add("compression", "gzip");
                 await moduleClient.SendEventAsync("compressMessageOutput", outMessage);
-                Console.WriteLine($"Received message sent with body size [{compressedMessageData.Length}]");
-            } else {
-                await moduleClient.SendEventAsync("compressMessageOutput", message);
+                Console.WriteLine($"Sent compressed message with body size: {compressedMessageData.Length}");
+            }
+            else
+            {
+                var outMessage = new Message(messageBytes);
+                foreach (var prop in message.Properties)
+                {
+                    outMessage.Properties.Add(prop.Key, prop.Value);
+                }
+                await moduleClient.SendEventAsync("compressMessageOutput", outMessage);
                 Console.WriteLine("Message had no body and was passed as-is.");
             }
-            return MessageResponse.Completed;
+            return MessageResponse.None;
         }
-    
+
 
         /// <summary>
         /// This method is called whenever the module is sent a message from the EdgeHub. 
@@ -101,29 +119,47 @@ namespace CompressionModule
                 throw new InvalidOperationException("UserContext doesn't contain " + "expected values");
             }
 
-            byte[] messageBytes = message.GetBytes();
-            
-            Console.WriteLine($"Received message. Body: [{Encoding.UTF8.GetString(messageBytes)}]. Body Size: [{messageBytes.Length}]");
+            await moduleClient.CompleteAsync(message);
 
-            if (messageBytes.Length > 0)
+            byte[] messageBytes = message.GetBytes();
+            if (message.Properties.Contains(new System.Collections.Generic.KeyValuePair<string, string>("compression", "gzip")))
             {
-                var decompressedMessageData = CompressionClass.Decompress(messageBytes);
-                var outMessage = new Message(decompressedMessageData);
+                Console.WriteLine($"Received compressed message with body size: {messageBytes.Length}");
+
+                if (messageBytes.Length > 0)
+                {
+                    var decompressedMessageData = CompressionClass.Decompress(messageBytes);
+                    var outMessage = new Message(decompressedMessageData);
+                    foreach (var prop in message.Properties)
+                    {
+                        outMessage.Properties.Add(prop.Key, prop.Value);
+                    }
+                    await moduleClient.SendEventAsync("decompressMessageOutput", outMessage);
+                    Console.WriteLine($"Sent decompressed message sent with body size: {decompressedMessageData.Length}");
+                }
+                else
+                {
+                    //If message body is 0 then pass through with no changes
+                    var outMessage = new Message(messageBytes);
+                    foreach (var prop in message.Properties)
+                    {
+                        outMessage.Properties.Add(prop.Key, prop.Value);
+                    }
+                    await moduleClient.SendEventAsync("compressMessageOutput", outMessage);
+                    Console.WriteLine("Message had no body and was passed as-is.");
+                }
+            }
+            else
+            { 
+                var outMessage = new Message(messageBytes);
                 foreach (var prop in message.Properties)
                 {
                     outMessage.Properties.Add(prop.Key, prop.Value);
                 }
                 await moduleClient.SendEventAsync("decompressMessageOutput", outMessage);
-                Console.WriteLine($"Decompressed message sent with body size [{decompressedMessageData.Length}]");
+                Console.WriteLine("Message was not compressed and was passed as-is.");
             }
-            else 
-            {
-                //If message body is 0 then pass through with no changes
-                await moduleClient.SendEventAsync("decompressMessageOutput", message);        
-                Console.WriteLine("Message had no body and was passed as-is.");
-            }
-
-            return MessageResponse.Completed;
+            return MessageResponse.None;
         }
     }
 }
