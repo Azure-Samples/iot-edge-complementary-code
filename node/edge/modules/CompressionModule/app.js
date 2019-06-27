@@ -52,7 +52,7 @@ function processMessage(client, inputName, message) {
 
   let messageBytes = message.getData();
 
-  if (messageBytes == 0) {
+  if (messageBytes.length == 0) {
     client.sendOutputEvent(COMPRESS_MESSAGE_OUTPUT, message);
 
     console.log("Message had no body and was passed as-is.");
