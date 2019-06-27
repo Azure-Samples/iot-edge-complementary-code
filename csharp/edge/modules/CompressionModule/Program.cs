@@ -84,10 +84,12 @@ namespace CompressionModule
             {
                 var compressedMessageData = CompressionClass.Compress(messageBytes);
                 var outMessage = new Message(compressedMessageData);
+                // copy properties from original message to new message
                 foreach (var prop in message.Properties)
                 {
                     outMessage.Properties.Add(prop.Key, prop.Value);
                 }
+                // add a new property indicating the message is compressed with gzip so the backend can handle compressed and non-compressed messages 
                 outMessage.Properties.Add("compression", "gzip");
                 await moduleClient.SendEventAsync("compressMessageOutput", outMessage);
                 Console.WriteLine($"Sent compressed message with body size: {compressedMessageData.Length}");
