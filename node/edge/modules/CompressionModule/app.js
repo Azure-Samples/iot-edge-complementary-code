@@ -71,10 +71,12 @@ function processMessage(client, inputName, message) {
 
         const outputMsg = new Message(compressedData);
 
+        // copy all properties to new message
         message.properties.propertyList.forEach(element => {
           outputMsg.properties.add(element.key, element.value);
         });
 
+        // add a new property indicating this message is compressed with gzip to allow backend to handle compressed and non-compressed messages
         outputMsg.properties.add("compression", "gzip");
 
         client.sendOutputEvent(COMPRESS_MESSAGE_OUTPUT, outputMsg);
