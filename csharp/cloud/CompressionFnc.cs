@@ -7,7 +7,7 @@ using System.Text;
 using System.IO;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
-using ModuleDataCompression;
+using DataCompression;
 using System;
 
 namespace CompressionFnc
@@ -16,8 +16,8 @@ namespace CompressionFnc
     {
         [FunctionName("CompressionFnc")]
         public static async Task Run(
-            [IoTHubTrigger("messages/events", ConsumerGroup = "$Default", Connection = "IoTHubConnectionString")]EventData message,
-            [Blob("test-out/{sys.randguid}", FileAccess.Write, Connection = "OriginWebJobs")] Stream output,
+            [IoTHubTrigger("messages/events", ConsumerGroup = "$Default", Connection = "IoTHubEventHubEndpoint")]EventData message,
+            [Blob("test-out/{sys.randguid}", FileAccess.Write, Connection = "OutputBlobConnectionString")] Stream output,
             ILogger log)
         {
            

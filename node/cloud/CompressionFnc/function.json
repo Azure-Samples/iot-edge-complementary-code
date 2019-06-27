@@ -6,7 +6,7 @@
       "name": "IoTHubMessage",
       "direction": "in",
       "eventHubName": "messages/events",
-      "connection": "IoTHubConnectionString",
+      "connection": "IoTHubEventHubEndpoint",
       "cardinality": "one",
       "consumerGroup": "$Default",
       "dataType": "binary"
@@ -15,7 +15,7 @@
       "name": "outputBlob",
       "type": "blob",
       "path": "test-out/{rand-guid}.json",
-      "connection": "OriginWebJobs",
+      "connection": "OutputBlobConnectionString",
       "direction": "out"      
     }
   ]
