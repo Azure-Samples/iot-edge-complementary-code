@@ -1,6 +1,6 @@
 FROM node:10-alpine
 
-COPY /shared /shared
+COPY /shared/compression /shared/compression
 
 COPY /edge/modules/CompressionNodeModule/package*.json /edge/modules/CompressionNodeModule/
 

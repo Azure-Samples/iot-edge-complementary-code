@@ -1,14 +1,21 @@
 FROM node:10-alpine
 
+WORKDIR /app/shared/compression
+
+# copy shared compression code
+COPY shared/compression ./
+
+# run unit test on compression code (debug dockerfile only)
+RUN npm install
+# RUN npm test
+
 WORKDIR /app/edge/modules/CompressionModule/
 
 COPY edge/modules/CompressionModule/package*.json ./
 
-RUN npm install --production
+RUN npm install
 
-COPY shared/*.js ../../../shared/
-
-COPY /edge/modules/CompressionModule/*.js ./
+COPY edge/modules/CompressionModule/*.js ./
 
 EXPOSE 9229
 

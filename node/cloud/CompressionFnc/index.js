@@ -1,4 +1,4 @@
-const decompressMessage = require('../../shared/compress-message.js').decompressMessage;
+const decompressMessage = require('compression').decompressMessage;
 
 module.exports = (context, IoTHubMessage) => {
 
