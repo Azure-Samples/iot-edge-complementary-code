@@ -11,11 +11,10 @@ RUN curl -sSL https://aka.ms/getvsdbgsh | bash /dev/stdin -v latest -l ~/vsdbg
 FROM microsoft/dotnet:2.1-sdk AS build-env
 
 WORKDIR /app/edge/modules/CompressionModule
-COPY shared/Compression/*.csproj ../../../shared/Compression/
-COPY edge/modules/CompressionModule/*.csproj ./
-RUN dotnet restore
+COPY shared/ ../../../shared/
+COPY edge/modules/CompressionModule/ ./
+RUN dotnet test
 
-COPY shared/Compression/ ../../../shared/Compression/
 COPY edge/modules/CompressionModule/ ./
 RUN dotnet publish -c Debug -o ../../../out
 
