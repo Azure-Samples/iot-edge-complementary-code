@@ -1,0 +1,16 @@
+{
+	"folders": [
+		{
+			"path": "edge"
+		},
+		{
+			"path": "shared"
+		}
+	],
+	"settings": {
+		"azure-iot-edge.defaultPlatform": {
+			"platform": "amd64",
+			"alias": null
+		}
+	}
+}

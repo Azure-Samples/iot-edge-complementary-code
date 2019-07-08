@@ -1,9 +1,0 @@
-C:\src\zFINALCOPY_Working\IoT_Edge_Compression_Solution\csharp\shared\Compression\bin\Debug\netstandard2.0\Compression.deps.json
-C:\src\zFINALCOPY_Working\IoT_Edge_Compression_Solution\csharp\shared\Compression\bin\Debug\netstandard2.0\Compression.dll
-C:\src\zFINALCOPY_Working\IoT_Edge_Compression_Solution\csharp\shared\Compression\bin\Debug\netstandard2.0\Compression.pdb
-C:\src\zFINALCOPY_Working\IoT_Edge_Compression_Solution\csharp\shared\Compression\obj\Debug\netstandard2.0\Compression.csprojAssemblyReference.cache
-C:\src\zFINALCOPY_Working\IoT_Edge_Compression_Solution\csharp\shared\Compression\obj\Debug\netstandard2.0\Compression.csproj.CoreCompileInputs.cache
-C:\src\zFINALCOPY_Working\IoT_Edge_Compression_Solution\csharp\shared\Compression\obj\Debug\netstandard2.0\Compression.AssemblyInfoInputs.cache
-C:\src\zFINALCOPY_Working\IoT_Edge_Compression_Solution\csharp\shared\Compression\obj\Debug\netstandard2.0\Compression.AssemblyInfo.cs
-C:\src\zFINALCOPY_Working\IoT_Edge_Compression_Solution\csharp\shared\Compression\obj\Debug\netstandard2.0\Compression.dll
-C:\src\zFINALCOPY_Working\IoT_Edge_Compression_Solution\csharp\shared\Compression\obj\Debug\netstandard2.0\Compression.pdb

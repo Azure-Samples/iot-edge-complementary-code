@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"path": "cloud"
+		},
+		{
+			"path": "shared"
+		}
+	],
+	"settings": {
+		"debug.internalConsoleOptions": "openOnSessionStart"
+	}
+}

@@ -1,0 +1,35 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "build",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "build",
+                "${workspaceFolder}/modules/CompressionModule/CompressionModule.csproj"
+            ],
+            "problemMatcher": "$tsc"
+        },
+        {
+            "label": "publish",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "publish",
+                "${workspaceFolder}/modules/CompressionModule/CompressionModule.csproj"
+            ],
+            "problemMatcher": "$tsc"
+        },
+        {
+            "label": "test",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "test",
+                "${workspaceFolder}../../shared/CompressionTests/CompressionTests.csproj"
+            ],
+            "problemMatcher": "$tsc"
+        }
+    ]
+}
