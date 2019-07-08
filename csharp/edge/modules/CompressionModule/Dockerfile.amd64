@@ -1,0 +1,19 @@
+FROM microsoft/dotnet:2.1-sdk AS build-env
+
+WORKDIR /app/edge/modules/CompressionModule
+COPY shared/Compression/*.csproj ../../../shared/Compression/
+COPY edge/modules/CompressionModule/*.csproj ./
+RUN dotnet restore
+
+COPY shared/Compression/ ../../../shared/Compression/
+COPY edge/modules/CompressionModule/ ./
+RUN dotnet publish -c Release -o ../../../out
+
+FROM microsoft/dotnet:2.1-runtime-stretch-slim
+WORKDIR /app
+COPY --from=build-env /app/out ./
+
+RUN useradd -ms /bin/bash moduleuser
+USER moduleuser
+
+ENTRYPOINT ["dotnet", "CompressionModule.dll"]

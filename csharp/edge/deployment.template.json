@@ -77,7 +77,7 @@
               "createOptions": {}
             }
           },
-          "CompressionNodeModule": {
+          "CompressionModule": {
             "version": "1.0",
             "type": "docker",
             "status": "running",
@@ -95,8 +95,8 @@
         "schemaVersion": "1.0",
         "routes": {
           "sensorToFilterModule": "FROM /messages/modules/tempSensor/outputs/temperatureOutput INTO BrokeredEndpoint(\"/modules/FilterModule/inputs/input1\")",
-          "FilterModuleToCompressionNodeModule": "FROM /messages/modules/FilterModule/outputs/* INTO BrokeredEndpoint(\"/modules/CompressionModule/inputs/compressMessage\")",
-          "CompressionNodeModuleToIoTHub": "FROM /messages/modules/CompressionModule/outputs/* INTO $upstream"
+          "FilterModuleToCompression": "FROM /messages/modules/FilterModule/outputs/* INTO BrokeredEndpoint(\"/modules/CompressionModule/inputs/compressMessage\")",
+          "CompressionToIoTHub": "FROM /messages/modules/CompressionModule/outputs/compressMessageOutput INTO $upstream"
         },
         "storeAndForwardConfiguration": {
           "timeToLiveSecs": 7200
