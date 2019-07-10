@@ -57,26 +57,6 @@
           }
         },
         "modules": {
-          "tempSensor": {
-            "version": "1.0",
-            "type": "docker",
-            "status": "running",
-            "restartPolicy": "always",
-            "settings": {
-              "image": "mcr.microsoft.com/azureiotedge-simulated-temperature-sensor:1.0",
-              "createOptions": {}
-            }
-          },
-          "FilterModule": {
-            "version": "1.0",
-            "type": "docker",
-            "status": "running",
-            "restartPolicy": "always",
-            "settings": {
-              "image": "${MODULES.FilterModule.debug}",
-              "createOptions": {}
-            }
-          },
           "CompressionModule": {
             "version": "1.0",
             "type": "docker",
@@ -84,6 +64,16 @@
             "restartPolicy": "always",
             "settings": {
               "image": "${MODULES.CompressionModule.debug}",
+              "createOptions": {}
+            }
+          },
+          "MessageSimulatorModule": {
+            "version": "1.0",
+            "type": "docker",
+            "status": "running",
+            "restartPolicy": "always",
+            "settings": {
+              "image": "${MODULES.MessageSimulatorModule.debug}",
               "createOptions": {}
             }
           }
@@ -94,8 +84,7 @@
       "properties.desired": {
         "schemaVersion": "1.0",
         "routes": {
-          "sensorToFilterModule": "FROM /messages/modules/tempSensor/outputs/temperatureOutput INTO BrokeredEndpoint(\"/modules/FilterModule/inputs/input1\")",
-          "FilterModuleToCompression": "FROM /messages/modules/FilterModule/outputs/* INTO BrokeredEndpoint(\"/modules/CompressionModule/inputs/compressMessage\")",
+          "SimulatorModuleToCompression": "FROM /messages/modules/MessageSimulatorModule/outputs/* INTO BrokeredEndpoint(\"/modules/CompressionModule/inputs/compressMessage\")",
           "CompressionToIoTHub": "FROM /messages/modules/CompressionModule/outputs/compressMessageOutput INTO $upstream"
         },
         "storeAndForwardConfiguration": {

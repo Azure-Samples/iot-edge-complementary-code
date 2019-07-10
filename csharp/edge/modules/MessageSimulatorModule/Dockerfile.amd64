@@ -7,7 +7,11 @@ RUN dotnet restore
 COPY . ./
 RUN dotnet publish -c Release -o out
 
-FROM microsoft/dotnet:2.1-runtime-nanoserver-1809
+FROM microsoft/dotnet:2.1-runtime-stretch-slim
 WORKDIR /app
 COPY --from=build-env /app/out ./
-ENTRYPOINT ["dotnet", "FilterModule.dll"]
+
+RUN useradd -ms /bin/bash moduleuser
+USER moduleuser
+
+ENTRYPOINT ["dotnet", "MessageSimulatorModule.dll"]

@@ -57,39 +57,6 @@
           }
         },
         "modules": {
-          "tempSensor": {
-            "version": "1.0",
-            "type": "docker",
-            "status": "running",
-            "restartPolicy": "always",
-            "settings": {
-              "image": "mcr.microsoft.com/azureiotedge-simulated-temperature-sensor:1.0",
-              "createOptions": {}
-            }
-          },
-          "FilterModule": {
-            "version": "1.0",
-            "type": "docker",
-            "status": "running",
-            "restartPolicy": "always",
-            "settings": {
-              "image": "${MODULES.FilterModule.debug}",
-              "createOptions": {
-                "ExposedPorts": {
-                  "9228/tcp": {}
-                },
-                "HostConfig": {
-                  "PortBindings": {
-                    "9228/tcp": [
-                      {
-                        "HostPort": "9228"
-                      }
-                    ]
-                  }
-                }
-              }
-            }
-          },
           "CompressionModule": {
             "version": "1.0",
             "type": "docker",
@@ -97,6 +64,29 @@
             "restartPolicy": "always",
             "settings": {
               "image": "${MODULES.CompressionModule.debug}",
+              "createOptions": {
+                "ExposedPorts": {
+                  "9229/tcp": {}
+                },
+                "HostConfig": {
+                  "PortBindings": {
+                    "9229/tcp": [
+                      {
+                        "HostPort": "9229"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "MessageSimulatorModule": {
+            "version": "1.0",
+            "type": "docker",
+            "status": "running",
+            "restartPolicy": "always",
+            "settings": {
+              "image": "${MODULES.MessageSimulatorModule.debug}",
               "createOptions": {
                 "ExposedPorts": {
                   "9229/tcp": {}
@@ -120,8 +110,7 @@
       "properties.desired": {
         "schemaVersion": "1.0",
         "routes": {
-          "sensorToFilterModule": "FROM /messages/modules/tempSensor/outputs/temperatureOutput INTO BrokeredEndpoint(\"/modules/FilterModule/inputs/input1\")",
-          "FilterModuleToCompressionModule": "FROM /messages/modules/FilterModule/outputs/* INTO BrokeredEndpoint(\"/modules/CompressionModule/inputs/compressMessage\")",
+          "SimulatorModuleToCompressionModule": "FROM /messages/modules/MessageSimulatorModule/outputs/* INTO BrokeredEndpoint(\"/modules/CompressionModule/inputs/compressMessage\")",
           "CompressionModuleToIoTHub": "FROM /messages/modules/CompressionModule/outputs/* INTO $upstream"
         },
         "storeAndForwardConfiguration": {

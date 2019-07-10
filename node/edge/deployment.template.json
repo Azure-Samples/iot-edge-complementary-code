@@ -57,33 +57,23 @@
           }
         },
         "modules": {
-          "tempSensor": {
-            "version": "1.0",
-            "type": "docker",
-            "status": "running",
-            "restartPolicy": "always",
-            "settings": {
-              "image": "mcr.microsoft.com/azureiotedge-simulated-temperature-sensor:1.0",
-              "createOptions": {}
-            }
-          },
-          "FilterModule": {
-            "version": "1.0",
-            "type": "docker",
-            "status": "running",
-            "restartPolicy": "always",
-            "settings": {
-              "image": "${MODULES.FilterModule}",
-              "createOptions": {}
-            }
-          },
-          "CompressionNodeModule": {
+          "CompressionModule": {
             "version": "1.0",
             "type": "docker",
             "status": "running",
             "restartPolicy": "always",
             "settings": {
               "image": "${MODULES.CompressionModule}",
+              "createOptions": {}
+            }
+          },
+          "MessageSimulatorModule": {
+            "version": "1.0",
+            "type": "docker",
+            "status": "running",
+            "restartPolicy": "always",
+            "settings": {
+              "image": "${MODULES.MessageSimulatorModule}",
               "createOptions": {}
             }
           }
@@ -94,9 +84,8 @@
       "properties.desired": {
         "schemaVersion": "1.0",
         "routes": {
-          "sensorToFilterModule": "FROM /messages/modules/tempSensor/outputs/temperatureOutput INTO BrokeredEndpoint(\"/modules/FilterModule/inputs/input1\")",
-          "FilterModuleToCompressionNodeModule": "FROM /messages/modules/FilterModule/outputs/* INTO BrokeredEndpoint(\"/modules/CompressionModule/inputs/compressMessage\")",
-          "CompressionNodeModuleToIoTHub": "FROM /messages/modules/CompressionModule/outputs/* INTO $upstream"
+          "SimulatorModuleToCompressionModule": "FROM /messages/modules/MessageSimulatorModule/outputs/* INTO BrokeredEndpoint(\"/modules/CompressionModule/inputs/compressMessage\")",
+          "CompressionModuleToIoTHub": "FROM /messages/modules/CompressionModule/outputs/* INTO $upstream"
         },
         "storeAndForwardConfiguration": {
           "timeToLiveSecs": 7200
