@@ -1,15 +1,17 @@
 FROM microsoft/dotnet:2.1-sdk AS build-env
 WORKDIR /app
 
-COPY *.csproj ./
+COPY edge/modules/MessageSimulatorModule/*.csproj ./
 RUN dotnet restore
 
-COPY . ./
+COPY edge/modules/MessageSimulatorModule/ ./
 RUN dotnet publish -c Release -o out
+
+COPY messages/ out/messages/
 
 FROM microsoft/dotnet:2.1-runtime-stretch-slim
 WORKDIR /app
-COPY --from=build-env /app/out ./
+COPY --from=build-env /app/out/ ./
 
 RUN useradd -ms /bin/bash moduleuser
 USER moduleuser

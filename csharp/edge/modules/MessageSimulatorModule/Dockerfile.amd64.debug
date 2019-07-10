@@ -11,14 +11,16 @@ RUN curl -sSL https://aka.ms/getvsdbgsh | bash /dev/stdin -v latest -l ~/vsdbg
 FROM microsoft/dotnet:2.1-sdk AS build-env
 WORKDIR /app
 
-COPY *.csproj ./
+COPY edge/modules/MessageSimulatorModule/*.csproj ./
 RUN dotnet restore
 
-COPY . ./
+COPY edge/modules/MessageSimulatorModule/ ./
 RUN dotnet publish -c Debug -o out
+
+COPY messages/ out/messages/
 
 FROM base
 WORKDIR /app
-COPY --from=build-env /app/out ./
+COPY --from=build-env /app/out/ ./
 
 ENTRYPOINT ["dotnet", "MessageSimulatorModule.dll"]
