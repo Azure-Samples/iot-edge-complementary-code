@@ -8,7 +8,6 @@ const expect = chai.expect;
 chai.use(sinonChai);
 
 const compressor = require('../compress-message');
-//const Message = require('azure-iot-device').Message;
 
 /*
 The compressed and decompressed data below is based on the content message string.
@@ -23,16 +22,8 @@ const compressedContentData = Buffer.from([31, 139, 8, 0, 0, 0, 0, 0, 0, 10, 43,
 const decompressedContentData = Buffer.from([116, 104, 105, 115, 32, 105, 115, 32, 
     97, 32, 109, 101, 115, 115, 97, 103, 101, 46]);
 
-/*
-const emptyTestMsg = new Message();
-const decompressedTestMsg = new Message(decompressedContentData);
-console.log(JSON.stringify(decompressedTestMsg));
-const compressedTestMsg = new Message(compressedContentData);
-*/
-
 describe('calling compressor.compressMessage', () => {
-    it('should log the size of the compressed and decompressed message');
-
+    
     it('should pass a empty data through without modifying it', () => {
         compressor.compressMessage(emptyContentData, function(err, compressedData){
             //Because we are comparing the headers, we have to get a copy of the original 
@@ -60,7 +51,7 @@ describe('calling compressor.decompressMessage', () => {
 
     it('should return a decompressed buffer of the data', () => {
         compressor.decompressMessage(compressedContentData, function(err, decompressedData){
-            console.log(decompressedMsgData);
+            console.log(decompressedData);
             expect(decompressedData).to.deep.equal(decompressedContentData);
         });
     });  
