@@ -6,3 +6,5 @@ The C# code is broken into 3 folders along with a test data folder:
 4) messages - This contains test data messages that are played back by the edge message simulator.
 
 Each of these folders contains a further README which outlines their installation, use and idiosyncracies.
+
+To build and run the C# sample open the edge.code-workspace and cloud-code-workspace files in two instances of Visual Studio Code.  See the top level [README](../README.md) for prerequisites.
