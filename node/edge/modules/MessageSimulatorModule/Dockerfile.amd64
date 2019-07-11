@@ -1,12 +1,14 @@
-FROM node:8-alpine
+FROM node:10-alpine
 
 WORKDIR /app/
 
-COPY package*.json ./
+COPY /edge/modules/MessageSimulatorModule/package*.json ./
 
 RUN npm install --production
 
-COPY app.js ./
+COPY /edge/modules/MessageSimulatorModule/*.js ./
+
+COPY /messages/ ./messages/
 
 USER node
 

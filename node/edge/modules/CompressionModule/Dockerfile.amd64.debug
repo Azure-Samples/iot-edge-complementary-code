@@ -6,14 +6,14 @@ WORKDIR /app/shared/compression
 COPY shared/compression ./
 
 # run unit test on compression code (debug dockerfile only)
-RUN npm install
+RUN npm install --production
 # RUN npm test
 
 WORKDIR /app/edge/modules/CompressionModule/
 
 COPY edge/modules/CompressionModule/package*.json ./
 
-RUN npm install
+RUN npm install --production
 
 COPY edge/modules/CompressionModule/*.js ./
 

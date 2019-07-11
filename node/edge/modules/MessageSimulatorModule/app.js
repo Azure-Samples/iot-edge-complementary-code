@@ -3,35 +3,56 @@
 var Transport = require('azure-iot-device-mqtt').Mqtt;
 var Client = require('azure-iot-device').ModuleClient;
 var Message = require('azure-iot-device').Message;
+var Fs = require('fs');
+var Path = require('path');
 
-Client.fromEnvironment(Transport, function (err, client) {
-  if (err) {
-    throw err;
-  } else {
-    client.on('error', function (err) {
+
+async function run() {
+
+  let interval = 30000;
+  let folder = "messages";
+  let prefix = "*.xml";
+  let outputChannelName = "output"
+
+  Client.fromEnvironment(Transport, (err, client) => {
+    if (err) {
       throw err;
-    });
-
-    // connect to the Edge instance
-    client.open(function (err) {
-      if (err) {
+    } else {
+      client.on('error', function (err) {
         throw err;
-      } else {
-        console.log('IoT Hub module client initialized');
+      });
 
-        while (true)
-        {
-          
+      // connect to the Edge instance
+      client.open(function (err) {
+        if (err) {
+          throw err;
+        } else {
+          console.log('IoT Hub module client initialized');
+
+          let path = folder + prefix;
+
+          const done = false;
+
+          while (!done) {
+            let files = await globAsync(path);
+            for (let i = 0; i < files.length; i++) {
+
+              let data = await readFileAsync(files[i], {});
+              let response = await client.sendOutputEvent(outputChannelName, new Message(data));
+              await sleep(interval);
+            }
+          }
+
         }
+      });
+    }
+  });
+}
 
-        // Act on input messages to the module.
-        client.on('inputMessage', function (inputName, msg) {
-          pipeMessage(client, inputName, msg);
-        });
-      }
-    });
-  }
-});
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 
 // This function just pipes the messages without any change.
 function pipeMessage(client, inputName, msg) {
@@ -57,3 +78,5 @@ function printResultFor(op) {
     }
   };
 }
+
+run();
