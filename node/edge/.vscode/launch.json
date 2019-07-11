@@ -15,7 +15,7 @@
       "name": "MessageSimulatorModule Remote Debug (Node.js)",
       "type": "node",
       "request": "attach",
-      "port": 9229,
+      "port": 9228,
       "address": "localhost",
       "localRoot": "${workspaceRoot}/modules/MessageSimulatorModule",
       "remoteRoot": "/app",

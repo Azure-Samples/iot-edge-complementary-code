@@ -10,8 +10,8 @@ COPY /edge/modules/MessageSimulatorModule/*.js ./
 
 COPY /messages/ ./messages/
 
-EXPOSE 9229
+EXPOSE 9228
 
 USER node
 
-CMD ["node", "--inspect=0.0.0.0:9229", "app.js"]
+CMD ["node", "--inspect=0.0.0.0:9228", "app.js"]
