@@ -17,7 +17,7 @@
       "request": "attach",
       "port": 9228,
       "address": "localhost",
-      "localRoot": "${workspaceRoot}/modules/MessageSimulatorModule",
+      "localRoot": "${workspaceRoot}/../",
       "remoteRoot": "/app",
       "protocol": "inspector"
     },
@@ -29,8 +29,7 @@
       "console": "integratedTerminal",
       "env": {
         "EdgeHubConnectionString": "${config:azure-iot-edge.EdgeHubConnectionString}",
-        "EdgeModuleCACertificateFile": "${config:azure-iot-edge.EdgeModuleCACertificateFile}",
-        "Folder": ""
+        "EdgeModuleCACertificateFile": "${config:azure-iot-edge.EdgeModuleCACertificateFile}"
       }
     }
   ]
