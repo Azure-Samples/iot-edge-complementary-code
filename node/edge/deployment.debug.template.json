@@ -95,7 +95,7 @@
                   "PortBindings": {
                     "9229/tcp": [
                       {
-                        "HostPort": "9229"
+                        "HostPort": "9228"
                       }
                     ]
                   }
