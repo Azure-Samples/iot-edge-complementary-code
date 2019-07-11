@@ -17,7 +17,7 @@
       "request": "attach",
       "port": 9228,
       "address": "localhost",
-      "localRoot": "${workspaceRoot}/../",
+      "localRoot": "${workspaceRoot}/modules/MessageSimulatorModule",
       "remoteRoot": "/app",
       "protocol": "inspector"
     },
