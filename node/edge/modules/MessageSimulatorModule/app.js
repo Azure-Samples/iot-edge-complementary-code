@@ -9,7 +9,6 @@ const util = require('util');
 
 const readFileAsync = util.promisify(fs.readFile);
 const globAsync = util.promisify(glob);
-const fromEnvironmentAsync = util.promisify(Client.fromEnvironment);
 
 async function run() {
 
@@ -18,7 +17,7 @@ async function run() {
   let prefix = "*.xml";
   let outputChannelName = "output"
 
-  let client = await fromEnvironmentAsync(Transport);
+  let client = await Client.fromEnvironment(Transport);
  
   await client.open();
   console.log('client initialized');
@@ -31,10 +30,11 @@ async function run() {
     let files = await globAsync(path);
 
     console.log(files.length);
+    // use for loop because forEach callback isn't async
     for (let i = 0; i < files.length; i++) {
 
       let data = await readFileAsync(files[i], {});
-      let response = await client.sendOutputEvent(outputChannelName, new Message(data));
+      await client.sendOutputEvent(outputChannelName, new Message(data));
       await sleep(interval);
     }
   }
