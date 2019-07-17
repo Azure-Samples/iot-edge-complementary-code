@@ -1,6 +1,6 @@
 # Introduction 
 
-This (Azure) IoT Edge module project serves to illustrate a pattern for separating business logic from Node package logic and a way to include package tests. 
+This (Azure) IoT Edge module project serves to illustrate a pattern for separating business logic from Node package logic and a way to include unit tests. 
 
 It provides compression/decompression code using zlib with gzip which can be reused in the Cloud to perform the complementary operation (ie. compress on device and decompress in the cloud).  
 

@@ -1,7 +1,7 @@
-The C# code is broken into 3 folders:
-
-1) Cloud - This code is for the Azure Function which receives a message using the Compression Library and writes it to Azure Blob Storage.
-2) Edge - This code is for the Azure IoT Edge device which consists of the IoT Edge modules as shown in the architecture diagram.  One module which sends the data, and the Compression module which demonstrates use of the library and routes the compressed data to the IoT Hub.
-3) Shared - This is the Compression library code.  Since this code is not hosted in a package manager, this allows both the Functions code and the IoT Edge code to use the same library.  There are caveats around this and both the Function and the IoT Edge require unique steps to use a repository with this structure.
-
-Each of these folders contains a further README which outlines their installation, use and idiosyncracies.
+Why use a /shared folder?
+Since the compression and decompression code is used both by the Edge and Cloud solutions (since they are complementary operations), rather than copying and pasting the code into two directories, it exists at the same level as both of these.  In order to use code at this level, the normal Docker build process for the Compression Module requires some modification.
+1) CompressionModule.csproj includes a reference to the csproj file in the directory.
+2) The build context for the Docker build step must be elevated.  In the module.json file, on line 16, "contextPath" elevates the build context out to the csharp root directory.   
+3) The .dockerignore file ignores the Azure Function code in the cloud_CompressionCSharpFnc folder to reduce the build context sent to Docker (reduction from ~46MB to 3MB).
+4) In the CompressionCSharpModule folder, each Dockerfile has been modified to COPY the entire directory that is not ignored by the Dockerfile and build the project.  
+5) This provides a model for testing the package code that is separated out from the modules and function code.  When this was only an IoT Edge Solution, the CompressionCSharpTests\ folder existed within the modules\ folder alongside the CompressionCSharpModule\ folder and had to be excluded with a .dockerignore file.  This makes it more straightforward to integrate with a package manager.
