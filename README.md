@@ -72,7 +72,7 @@ Install [Visual Studio Code](https://code.visualstudio.com/) first and then add 
     ```
 #### Azure Storage Emulator
 
-[AzureStorageEmulator](https://go.microsoft.com/fwlink/?linkid=717179&clcid=0x409) (optional, Windows only) - provides a local environment that emulates the Azure Blob, Queue, and Table services for development purposes.
+[AzureStorageEmulator](https://docs.microsoft.com/en-us/azure/storage/common/storage-use-emulator) (optional, Windows only) - provides a local environment that emulates the Azure Blob, Queue, and Table services for development purposes.  Use the link for the standalone installer.
 
 Azure Blob Storage is required for the Azure Functions runtime for internal state management.  The Azure Function in this sample also writes decompressed messages to an Azure Storage account. 
 
