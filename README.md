@@ -45,6 +45,9 @@ Install [Visual Studio Code](https://code.visualstudio.com/) first and then add 
 
 - [C# extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode.csharp) (only required for C# version of sample)
 - [Azure IoT Tools](https://marketplace.visualstudio.com/items?itemName=vsciot-vscode.azure-iot-tools)
+
+    **Note**: Azure IoT Tools is an extension pack that installs 3 extensions that will show up in the Extensions pane in Visual Studio Code - *Azure IoT Hub Toolkit*, *Azure IoT Edge* and *Azure IoT Workbench*.
+
 - [Azure Functions](https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-azurefunctions)
 
 **Note**: Extensions can be installed either via links to the Visual Studio Code Marketplace above or by searching extensions by name in the Marketplace from the Extensions tab in Visual Studio Code.
@@ -97,6 +100,10 @@ This sample only requires the local Azure Functions Core Tools.  An Azure Functi
 
 [Create an Azure Functions App](https://docs.microsoft.com/en-us/azure/azure-functions/functions-create-first-azure-function#create-a-function-app)
 
+#### Azure Container Registry (optional)
+This sample can be built and run in the local Azure IoT Edge Simulator without pushing Azure IoT Edge modules to a container registry.  A container registry is only needed when deploying to actual Azure IoT Edge device.  Any Docker container registry can be used, inluding DockerHub and Azure Container Registry.
+
+[Create an Azure Container Registry](https://docs.microsoft.com/en-us/azure/container-registry/container-registry-get-started-portal)
 
 ## Running the Sample
 
