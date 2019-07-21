@@ -1,14 +1,11 @@
 using IoTHubTrigger = Microsoft.Azure.WebJobs.EventHubTriggerAttribute;
 using Microsoft.Azure.WebJobs;
-using Microsoft.Azure.WebJobs.Host;
 using Microsoft.Azure.EventHubs;
-using Microsoft.Azure.WebJobs.Extensions.Storage;
 using System.Text;
 using System.IO;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using DataCompression;
-using System;
 
 namespace CompressionFnc
 {
