@@ -13,7 +13,7 @@ FROM microsoft/dotnet:2.1-sdk AS build-env
 WORKDIR /app/edge/modules/CompressionModule
 COPY shared/ ../../../shared/
 COPY edge/modules/CompressionModule/ ./
-RUN dotnet test
+RUN dotnet test ../../../shared/CompressionTests
 
 COPY edge/modules/CompressionModule/ ./
 RUN dotnet publish -c Debug -o ../../../out
