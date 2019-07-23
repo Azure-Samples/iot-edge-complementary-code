@@ -12,9 +12,9 @@ const globAsync = util.promisify(glob);
 
 async function run() {
 
-  let interval = 30000;
-  let folder = "messages/";
-  let prefix = "*.xml";
+  const interval = 30000;
+  const folder = "messages/";
+  const prefix = "*.xml";
   let outputChannelName = "output"
 
   let client = await Client.fromEnvironment(Transport);

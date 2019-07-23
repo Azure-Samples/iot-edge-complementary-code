@@ -44,23 +44,23 @@ function processMessage(client, inputName, message) {
 
   /*IoT Message Error Handling*/
   if (!message) {
-    console.log(err);
+    console.log("CompressionModule processMessage called in null message");
     return;
-  };
+  }
 
   client.complete(message);
 
   let messageBytes = message.getData();
 
-  if (messageBytes.length == 0) {
-    client.sendOutputEvent(COMPRESS_MESSAGE_OUTPUT, message);
-
-    console.log("Message had no body and was passed as-is.");
-    return;
-  }
-
   switch (inputName) {
     case COMPRESS_MESSAGE:
+
+        if (messageBytes.length == 0) {
+          client.sendOutputEvent(COMPRESS_MESSAGE_OUTPUT, message);
+      
+          console.log("Empty message was passed as-is.");
+          return;
+        }
       console.debug("Received message with body size: " + messageBytes.length);
       
       compressMessage(messageBytes, (err, compressedData) => {
@@ -86,9 +86,16 @@ function processMessage(client, inputName, message) {
       break;
     case DECOMPRESS_MESSAGE:
 
+    
+        if (messageBytes.length == 0) {
+          client.sendOutputEvent(DECOMPRESS_MESSAGE_OUTPUT, message);
+      
+          console.log("Empty message was passed as-is.");
+          return;
+        }
       if (message.properties["compression"] == "gzip") {
 
-        let compressedData = message.getData();
+        // let compressedData = message.getData();
         console.debug("Received compressed message with body size: " + messageBytes.length);
 
         decompressMessage(messageBytes, (err, data) => {
