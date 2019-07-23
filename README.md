@@ -44,6 +44,7 @@ The edge and cloud samples are designed to be built and run together on a develo
 Install [Visual Studio Code](https://code.visualstudio.com/) first and then add the following extensions:
 
 - [C# extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode.csharp) (only required for C# version of sample)
+- [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) (only required for Node.js version of sample) - provides JavaScript syntax checking
 - [Azure IoT Tools](https://marketplace.visualstudio.com/items?itemName=vsciot-vscode.azure-iot-tools)
 
     **Note**: Azure IoT Tools is an extension pack that installs 3 extensions that will show up in the Extensions pane in Visual Studio Code - *Azure IoT Hub Toolkit*, *Azure IoT Edge* and *Azure IoT Workbench*.
