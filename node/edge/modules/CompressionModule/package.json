@@ -5,5 +5,8 @@
         "azure-iot-device": "^1.9.9",
         "azure-iot-device-mqtt": "^1.9.9",
         "compression": "file:../../../shared/compression"
+    },
+    "devDependencies": {
+        "eslint": "^6.1.0"
     }
 }
