@@ -1,20 +1,44 @@
 # Overview 
-This folder contains the Azure IoT Edge Solution for the Azure IoT Edge compression module, a part of the C#/.NET Core version of the Complementary Code Pattern sample.  For a high level overview of the both the pattern and the sample, along with **prerequites** for building and running the sample, start with the top level [README.md](../../README.md) in this repository.
+This is the README file for the C# *edge* Visual Studio workspace (*edge.code-workspace*),  part of the C#/.NET Core version of the Complementary Code Pattern sample.  It is intended to be built and run with the companion code in the *cloud* workspace (*cloud.code-workspace*) in the same folder.  Both workspaces can be open simultaneously in different instances of Visual Studio Code.
 
-Azure IoT Edge Solutions in Visual Studio Code are organized by a root folder containing the [Azure IoT Edge Deployment manifests](https://docs.microsoft.com/en-us/azure/iot-edge/module-composition) (*deployment.template.json* and *deployment.debug.template.json*) and a *modules* subfolder, which contains a folder for each module, containing the module metadata file (*module.json*), Dockerfiles and language specific code for building the module.  The Azure IoT Edge Visual Studio Code extension recognizes this structure and activates when the root folder is opened in Visual Studio code or as a workspace folder in Visual Studio Code.
+------
+
+
+> **Warning:**
+> When you first load the <b>edge</b> workspace in Visual Studio Code, the installed extensions will present messages letting you know that there are undefined environment variables in the deployment manifests and the C# projects need to be restored.  It is OK to dismiss these warnings.
+
+>The Azure IoT Edge extension presents a dialog with the message "Please set registry credential to .env file." Selecting the *OK* button will create a blank .env file, but the message will continue until the environment variable are defined in the *.env* file. Setting the required environment variables  is covered later in the *Set environment variables* step when you configure your development environment.
+
+> The C# language extension presents a dialog with the message "There are unresolved dependencies.  Please execute the restore command to continue." Selecting the *Restore* button will execute the *dotnet restore* command on all of the .NET project files in the workspace.  This will eliminate the warning on subsequent loads, but the local file system restore and build is not used when running a deployment in the Azure IoT Edge Simulator, since each Azure IoT Edge Module is built in its own Docker container.
+
+------
+
+The top level [README.md](../../README.md) in this repository provides an overview of the Complementary Code sample, including an architecture diagram, along with prerequisites for building and running the sample code.
+
+After installing prerequisites, make sure to follow the instructions in the [EdgeDevelopment.md](../../EdgeDevelopment.md) to configure your development environment for building the samples.  
+
+This workspace contains 3 folders:
+
+1. edge - This folder contains an Azure IoT Edge solution consists of the two IoT Edge modules shown in the architecture diagram - the compression module (*CompressionModule*) and a message simulator module (*MessageSimulatorModule*).  The *MessageSimulatorModule* generates messages which are compressed by the *CompressionModule* and forwarded to to your Azure IoT Hub service.
+
+   The *CompressionModule* is designed to illustrate the Complementary Code pattern to share logic between Edge components and the Cloud.  The *CompressionModule* project file references the *Compression* .NET library, located in the *shared/Compression* folder. 
+
+   For demonstration, *MessageSimulatorModule* is also included  in the Azure IoT Edge solution.  This module simply plays back sample test messages from the *messages* folder in this workspace and sends them to the *CompressionModule* using an Azure IoT Edge route.
+
+2. shared - This folder contains two .NET library projects - Compression and CompressionTests.  Compression is the compression library code.  Since this code is not hosted in a package manager, this allows both the Functions code and the IoT Edge code to use the same library.   The *Compression* library uses the *GZipStream* compression class, included in the .NET Core Framework. 
+
+3. messages - This folder contains test data messages that are played back by the message simulator module.
 
 This sample assumes basic familiarity with Azure IoT Edge Modules and how to build them with Visual Studio Code.  For an introduction to building an IoT Edge Modules in C#, refer to 
 [Tutorial: Develop a C# IoT Edge module for Linux devices](https://docs.microsoft.com/en-us/azure/iot-edge/tutorial-csharp-module).
 
-This Azure IoT Edge Solution actually builds two modules - *CompressionModule* and *MessageSimulatorModule*, which are located under the *modules* folder.  Each module is built as a .NET Core console application and includes a .NET Core project file. 
+Azure IoT Edge Solutions in Visual Studio Code are organized by a root folder containing the [Azure IoT Edge Deployment manifests](https://docs.microsoft.com/en-us/azure/iot-edge/module-composition) (*deployment.template.json* and *deployment.debug.template.json*) and a *modules* subfolder, which contains a folder for each module included in the deployment manifest the manifest.  Each module folder contains a module metadata file (*module.json*), a Dockerfile for each support platform + debug/release combination,  and the language specific code for building the module (C#,Node.js, Python, etc.).  ???In addition to the compression module , this Azure IoT Edge Solution builds a module used to  .  Each module is built as a .NET Core console application and includes a .NET Core project file.??? 
 
-The *CompressionModule* is designed to illustrate the Complementary Code pattern to share logic between Edge components and the Cloud.  The *CompressionModule* project file references the *Compression* .NET library, located in the *shared/Compression* folder.  The *Compression* library uses the *GZipStream* compression class, included in the .NET Core Framework. 
-
-For demonstration, *MessageSimulatorModule* is also included  in the Azure IoT Edge solution.  This module plays back sample test messages from the *messages* folder in this workspace and sends them to the *CompressionModule* using an Azure IoT Edge route. 
+The *Azure IoT Edge* Visual Studio Code extension recognizes this structure and activates when the root folder is opened in Visual Studio code or as a workspace folder in Visual Studio Code.
 
 Azure IoT Edge routes are defined in the deployment manifests.  This solution has two routes defined - *SimulatorToCompression* and *CompressionToIoTHub*.  The *SimulatorToCompression* route instructs the Azure IoT Edge Hub to route message from all outputs of the *MessageSimulatorModule* to the *compressMessage* input of the *CompressionModule*.  Code in the *CompressionModule* binds the *compressMessage* input to its *CompressMessage* method.  There is also a *decompressMesage* method bound to the *DecompressMessage* method, but it is included only for illustration and is not used in the sample.  The second route, *CompressionToIoTHub*, instructs the Azure IoT Edge Hub to send all output messages to the parent Azure IoT Hub.  
 
-## Sharing code in C#/.NET Core Azure IoT Edge Modules
+# Sharing code in C#/.NET Core Azure IoT Edge Modules
 
 The method for sharing code between an Azure IoT Edge module and an Azure Function varies according to the code platform and associated options for publishing and importing code. 
 
@@ -24,116 +48,95 @@ The method for sharing code between an Azure IoT Edge module and an Azure Functi
  <ItemGroup>
     <ProjectReference Include="..\..\..\shared\Compression\Compression.csproj" />
   </ItemGroup>
-  ```
-At build time, the .NET compiler copies the *Compression* library binaries to the binary output folder of the *CompressionModule*.  However, the .NET compiler must have access to the referenced library folder.  When building on the local file system, this isn't a problem. However, Azure IoT Edge Module are not built on the local file system.  They are built in a Docker container, using a Dockerfile.  By default, the *docker build* command issued by the Azure IoT Edge extension uses the module's folder for its root context. For example, the default Docker context for the *CompressionModule* is the *CompressionModule* folder.  Docker can't access files outside of its context, so the .NET compiler would be unable to resolve the *Compression* library reference when building in a Docker container.  
+```
+At build time, the .NET compiler copies the *Compression* library binaries to the binary output folder of the *CompressionModule*.  However, the .NET compiler must have access to the *Compression* library folder.  When building on the local file system, this isn't a problem. However, Azure IoT Edge modules are not built on the local file system.  They are built in a Docker container, using a Dockerfile.  By default, the *docker build* command issued by the Azure IoT Edge extension uses the module's folder for its root context. For example, the default Docker context for the *CompressionModule* is the *CompressionModule* folder.  Docker can't access files outside of its root context, so, by default, .NET compiler would be unable to resolve the *Compression* library reference when building in a Docker container.  
 
 The solution is to raise the docker context so that it has access to folders above the individual module folders.  The module metadata file (*module.json*) supports a Docker context setting, *contextPath*, which is passed to the Docker build command. Below is the line from the *module.json* file which sets the context.
 
 ```json
         "contextPath" : "../../../"
-```        
-This setting is used in both *CompressionModule* and *MessageSimulatorModule* to raise the Docker context to the *csharp* root folder.  This allows the *CompressionModule* Dockerfile to access the *Compression* library and the *MessageSimulatorModule* Dockerfile to access the sample messages in the *messages* folder.
+```
+This setting is used in both *CompressionModule* and *MessageSimulatorModule* to raise the Docker context to the *csharp* root folder of the repo.  This allows the *CompressionModule* Dockerfile to access the *Compression* library and the *MessageSimulatorModule* Dockerfile to access the sample messages in the *messages* folder.
 
-There is one problem with having the Docker build context at this level.  During a build, the Docker client sends all of the files in the Docker context to the Docker server in a tar file.  When running the Docker server locally, this overhead may not be noticable, but its still overhead in the build process.  Therefore, it should be efficient as possible. 
+However, there is one problem with having the Docker build context at this level.  During a build, the Docker client sends all of the files in the Docker context to the Docker server in a tar file.  When running the Docker server locally, this overhead may not be noticeable, but its still overhead in the build process.  Therefore, it should be efficient as possible. 
 
 With the Docker context at the *csharp* folder level, all the code under the *cloud* subfolder is incorrectly included in the Docker context.  
 
-Luckily, there is an easy solution to filter out unwanted files from the Docker build context.  Docker supports a *.dockerignore* file, which contains a list of exluded directories and file patterns.  Below is the a line from the *.dockerignore* file in the *csharp* directory which excludes the *cloud* folder from the Edge module docker builds.
+Luckily, there is an easy solution to filter out unwanted files from the Docker build context.  Docker supports a *.dockerignore* file, which contains a list of excluded directories and file patterns.  Below is the a line from the *.dockerignore* file in the *csharp* directory which excludes the *cloud* folder from the Edge module docker builds.
 
 ```
 cloud/*
 ```
 
-## Development Environment Configuration
+# Debugging C# Azure IoT Edge Modules in Visual Studio Code
 
-1) Handling warnings from Visual Studio Code extensions
+For .NET Core/C#, Azure IoT Edge modules are built as .NET Core console applications.  However, the console application must instantiate a *ModuleClient* object to start and run as an Azure IoT Edge module and route messages.  In order to instantiate a *ModuleClient* object, the module must be able to connect to the Azure IoT Edge runtime or the Azure IoT Edge Simulator.
 
-    When you first load the edge and cloud workspaces in Visual Studio Code, the installed extensions will present messages letting you know that there are undefined environment variables in the deployment manifests and the C# projects need to be restored.  It is OK to dismiss these warnings.
+Visual Studio Code supports debugging Azure IoT Edge modules with the Azure IoT Edge Simulator using two different techniques - debugging without a container, and debugging in attach mode with the Azure IoT Edge Simulator.
 
-    The Azure IoT Edge extension presents a dialog with the message "Please set registry credential to .env file." Selecting the OK button will create a blank .env file, but the message will continue until the environement variable are defined in the *.env* file. Setting the required environment variables  is covered below in the *Setup environment variables step*.
+  
 
-    The C# language extension presents a dialog with the message "There are unresolved dependencies.  Please execute the restore command to continue." Selecting the Restore button will execute the *dotnet restore* command on all of the .NET project files in the workspace.  This will eliminate the warning on subsequent loads, but the local file system retore and build is not used when running a deployment in the Azure IoT Edge Simulator, since each module is built in its own the Azure IoT Edge Modules are built in their own Docker containers.
-
-1) Connect your Azure account to Visual Studio Code
-
-    The *Azure IoT Tools* Visual Studio Code extension pack installs a prerequisite *Azure Account* extension if its not already present.  This extension allows Visual Studio Code to connect to your Azure subscription.  For this sample, Visual Studio Code needs to connect to you Azure IoT Hub service.
-
-    Open the command palette and search for *Azure: Sign In*
-
-    Select this command and you will be prompted to sign into your Azure account in a separate browser window.  After sign-in, you should see *Azure:* followed by your login account in the status bar at the bottom of Visual Studio Code.
-
-1) Connect to your Azure IoT Hub
-
-    There are 2 ways to connect to your Azure IoT Hub from within Visual Studio Code:
-
-      Open the command palette and search for *Azure IoT Hub: Select IoT Hub* 
-      
-      **or**
-
-      Go to the *AZURE IOT HUB* section in the Explorer pane of Visual Studio Code.  Select the ... to open the Azure IoT Hub context menu.  From the Context Menu, choose *Select IoT Hub*.  
-
-    Both options will open a selection list of available subscriptions at the top of the Visual Studio window.  After selecting your subscription, all available Azure IoT Hubs in your subscription will be presented in another selection list.  After selecting your Azure IoT Hub, the *AZURE IOT HUB** section in the Explorer pane of Visual Studio Code will be populated with configured Devices and Endpoints.  The Devices list will initially be empty for a new Azure IoT Hub.
-
-1) Create an Azure IoT Edge device 
-    
-    This sample is designed to run in the Azure IoT Edge Simulator on a local developement machine.  However, the Simulator still connects to your Azure IoT Hub service, and therefore needs an Azure IoT Edge device definition in Azure IoT Hub.  You can create an Azure IoT Edge device in the Azure portal, but its easier from Visual Studio Code with the Azure IoT Edge extension installed.
-
-    There are 2 ways to create an Azure IoT Edge device from Visual Studio Code:
-
-    Open the command palettle and search for *Azure IoT Hub: Create IoT Edge Device*. 
-
-    **or**
-    
-    Go to the *AZURE IOT HUB* section in the Explorer pane of Visual Studio Code.  Select the ... to open the Azure IoT Hub context menu.  From the Context Menu, choose *Create IoT Edge Device*. 
-
-    Both options will open a prompt for you to enter the name of the device.
-
-    **Note:** There is also a *Azure IoT Hub: Create Device* command.  This creates a traditional Edge device which does not support the Azure IoT Edge Runtime and does not work with the Azure IoT Edge Simulator.
-
-1) Configure Azure IoT Edge Simulator to use your Edge Device identity
-
-    Again, there are 2 ways to create setup the Azure IoT Edge Simulator from within Visual Studio Code 
-    
-    Open the palette and search for *Azure IoT Edge: Setup IoT Edge Simulator*.  After selecting the command, a list of devices is displayed.  Select the device you created in the previous step. 
-
-    **or**
-
-    Go to the *AZURE IOT HUB* section in the Explorer pane of Visual Studio Code.  Expand the Devices list, and right click on the device you created in the previous step to open the Context Menu.  Select *Setup IoT Edge Simulator* from the Context Menu. 
-
-    **Note:** If you try to use the *Setup IoT Edge Simulator command without first connecting to your Azure IoT Hub,
-    you will instead be prompted to enter the connection string for an Azure IoT Hub device.
-
-1) Set environment variables
-
-    The Azure IoT Edge solution deployment manifests (deployment.json and deployment.debug.json) support environment variable substitution.  contain 3 variablesThe *.env.temp* file is used as a placeholder for the values for your project.  After filling in the values, remove the .temp extension so you only have .env.  The pattern used here allows you to store environment variables in one place without having them directly listed in the deployment templates and module.json files.  For example in the Compression Module, the module.json file contains $COMPRESSION_MODULE_REGISTRY which gets replaced with the value in the .env file.  In normal setup, that would have the actual value you have entered for your module.  Since this is a shared repository, I have opted for placeholders.  This pattern may be useful  in sharing other modules which you develop later.  
-
-1) Verfiy Docker runtime mode (**Windows only**)
-This sample is built to run in an Ubuntu container and requires a Linux Container runtime. If running on Windows, make sure that that Docker CE is running in the default Linux container mode. 
-
-3) Select your target architecture
-
-    Currently, Visual Studio Code can develop Node.js modules for Linux AMD64 and Linux ARM32v7 devices. You need to select which architecture you're targeting with each solution, because the container is built and run differently for each architecture type. The default is Linux AMD64.
-
-    Open the command palette and search for *Azure IoT Edge: Set Default Target Platform for Edge Solution*, or select the [shortcut icon](./edge-platform.png) in the side bar at the bottom of the window.
-
-    In the command palette, select the target architecture from the list of options. This tutorial uses an Ubuntu docker image as the IoT Edge device, make sure the default amd64 is selected.
-
-## Build and Run the Sample
-
-The sample deployment can be built and run in the Azure IoT Edge Simulator, using either the debug or non-debug build.  These correspond to the The debug version of the deployment manifest builds Docker image with the vsdg, the cross-platform Visual Studio Code debugger included, allowing source line debugging of Azure Iot Edge modules running in the Azure IoT Edge Simulator().
-
-Azure IoT Edge Solutions in Visual Studio Code contain a deployment manifest and one or more Azure IoT Edge Modules.  The Visual Studio Code Azure IoT Edge extension recognizes the Azure IoT Edge Solution structure and enables context menu items on the deployment manifest files, deployment.template.json and deployment.debug.template.json.
+  This section provides instructions for building building and running the sample in the Simulator, and optionally attaching the VSCode debugger to the running modules.  The sample can also be pushed to your container registry and deployed to actual Edge device, by following the instructions in the [Tutorial: Develop a C# IoT Edge module for Linux devices](https://docs.microsoft.com/en-us/azure/iot-edge/tutorial-csharp-module).
 
 
-Select the deployment.debug.template.json in the Explorer pane of Visual Studio Code and right click to display the context menu. Select Build and Run IoT Solution in Simulator.
+Azure IoT Edge Solutions contain manifests for both debug (*deployment.debug.template.json*) and release container builds (*deployment.template.json*).  Depending on the selection of the debug or release version, and the selected Azure IoT Edge platform, the Azure IoT Edge extension selects the appropriate Dockerfile in each module's directory.  For example, the Azure IoT Edge extension uses the *Dockerfile.amd64.debug* Dockerfile when the *deployment.debug.template.json* is used and the *amd64* platform is selected.
 
-## Debugging Azure IoT Edge Modules
+For .NET Core/C#, the debug version of the amd64 Dockerfile (*Dockerfile.amd64.debug*) installs the *vsdbg* cross-platform .NET debugger, builds a debug version of the .NET console application, and includes unit test code in the container.
 
- ## Complementary Code Unit Testing
+# Build and Run the Sample
+
+
+1) Set module to debug mode (optional)
+
+	- Enable debugger wait code
+	
+		Debugging Azure IoT modules running in the simulator requires starting the debug build module, and subsequently attaching the vsdbg debugger from Visual Studio Code.  Because of this 2 step process, module initialization usually takes place before the debugger is available.  Both .NET modules in this sample use a debugger wait code strategy to stop program flow execution until the debugger attaches.  This allows debugging of module initialization code.  Below is the code that is added to the module initialization method (*Program.Init*).
+		```csharp
+	          static async Task Init(bool debug = false)
+	          {
+	  #if DEBUG            
+	              while (debug && !Debugger.IsAttached)
+	              {
+	                  Console.WriteLine("Module waiting for debugger to attach...");
+	                  await Task.Delay(1000);
+	              };
+	  #endif
+		```
+	
+		To enable this debugger wait code, a debug=true Boolean value must be passed to the Init method from the program's Main entry point.
+	
+		```csharp
+	          static async Task Main(string[] args)
+	          {
+	              await Init(true);
+	
+	              // Wait until the app unloads or is cancelled
+	              var cts = new CancellationTokenSource();
+	              AssemblyLoadContext.Default.Unloading += (ctx) => cts.Cancel();
+	              Console.CancelKeyPress += (sender, cpe) => cts.Cancel();
+	              await WhenCancelled(cts.Token);
+	          }
+		```
+	
+	- Set a breakpoint in Visual Studio code at any point after the debugger wait code using the F9 key or clicking to the left of the code line number.
+	
+	>**Note:** Each Visual Studio Code instance can only debug one module, so its recommended to enable this debugger wait code only only one module at a time.
+
+
+
+2. Select the deployment.debug.template.json in the Explorer pane of Visual Studio Code and right click to display the context menu. Select Build and Run IoT Solution in Simulator.
+
+3. Attach debugger to module (optional)
+
+	To bring up the Debug view, select the Debug icon in the Activity Bar on the side of VS Code. 
+
+	In order to start a debug session, first select the configuration named Launch Program using the Configuration drop-down in the Debug view. Once you have your launch configuration set, start your debug session with F5.
+
+# Complementary Code Unit Testing
+
+# Deploying to Azure
 
 
 
 
 
-
- 
