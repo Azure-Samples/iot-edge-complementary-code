@@ -1,8 +1,34 @@
-# Introduction 
+# Overview 
 
-This Azure function project serves as the Cloud complement to the IoT Edge Compression Module code.  It demonstrates decompressing a compressed message which is sent from the IoT Edge module through Edge Hub and writing the decompressed message to Azure Blob Storage.
+This is the README file for the C# *cloud* Visual Studio workspace (*cloud.code-workspace*),  part of the C#/.NET Core version of the Complementary Code Pattern sample.  It is intended to be built and run with the companion code in the *edge* workspace (*edge.code-workspace*) in the same folder.  Both workspaces can be open simultaneously in different instances of Visual Studio Code.
 
-The `ModuleDataCompression.cs` file is identical to the one found within the IoT Edge Module project since it uses the complementary operation.  This code could be reversed to send a compressed message from the Cloud to the Edge Compression Module which would decompress it.  For further information, see the IoT Edge project README.md.
+The top level [README.md](../../README.md) in this repository provides an overview of the Complementary Code sample, including an architecture diagram, along with prerequisites for building and running the sample code.
+
+After installing prerequisites, make sure to follow the instructions in the [EdgeDevelopment.md](../../EdgeDevelopment.md) to configure your development environment for building the samples.  
+
+This workspace contains 2 folders:
+
+1. cloud- This folder contains an Azure Functions App project  as shown in the architecture diagram.  This Azure function project serves as the Cloud complement to the IoT Edge compression module code.  It demonstrates decompressing a compressed message which is sent from the IoT Edge module through Edge Hub and writing the decompressed message to Azure Blob Storage.
+
+2. shared - This folder contains two .NET library projects - *Compression* and *CompressionTests*.  *Compression* is the compression library code used by both the Azure Fiunctions App project in this workspace and the Azure IoT Edge solution in the *edge* workspace. The *Compression* library uses the *GZipStream* compression class, included in the .NET Core Framework. *CompressionTests* is an xUnit.net unit test application.
+
+   
+
+# Sharing code in C#/.NET Core Azure IoT Edge Modules
+
+The method for sharing code between an Azure IoT Edge module and an Azure Function varies according to the code platform and associated options for publishing and importing code. 
+
+.NET projects can leverage external code via direct references to another project or via references to downloaded NuGet packages. The *CompressionFnc* Azure Funtions App project uses a direct project reference to leverage code in the *Compression* library project, located in the *shared/Compression* folder.  Below is the line from the *CompressionFnc.csproj* which references the *Compression.csproj*:
+
+```xml
+  <ItemGroup>
+    <ProjectReference Include="..\shared\Compression\Compression.csproj" />
+  </ItemGroup>
+```
+
+At build time, the .NET compiler copies the *Compression* library binaries to the binary output folder of the *CompressionFnc*.  
+
+Debugging C# Azure IoT Edge Modules in Visual Studio Code
 
 # Getting Started
 
@@ -16,26 +42,8 @@ The `ModuleDataCompression.cs` file is identical to the one found within the IoT
     You will need to add a Blob named `test-out` in your storage account, or a name of your choosing.  If you choose something different, update `test-out` 
     in the parameters of the `CompressionCSharpFnc.cs` file.  Instead of *"test-out/{sys.randguid}"* it will be *"<your chosen name>/{sys.randguid}"*.
 
-2.	Software dependencies
-
-    To use this code locally, you will need to have [Azure Functions Core Tools](https://docs.microsoft.com/en-us/azure/azure-functions/functions-run-local) installed.
-
-    From this command line in this directory, `func start` with run the function and process messages that have been sent to IoT Hub from the Compression Module and write the output of the message to the specified blob storage with a random guid name. 
-
-    The `launch.json` file has the necessary information to run the debug experience in VS Code.
-
-    Cloud Deployment:
-    To deploy to Azure you must have a functionapp.  It is easiest to use the VS Code Azure Functions extension to do this.  If you prefer the command line with Azure Functions Core Tools, this article provides the steps to take: https://docs.microsoft.com/en-us/azure/azure-functions/functions-create-first-azure-function-azure-cli .
-    In VS Code within the Azure Functions extension, right-click on your subscription and select 'Create Function App.'  After entering that, you must run this command `func azure functionapp publish <Name of your function app> --publish-local-settings`.  If you use the deploy button in the Azure Functions extension, it will not publish local settings and you will not write data to blob storage. 
     
-    You will also need to move the shared code into your Azure functions folder.  This does not automatically get deployed with your code since only the code in the edge folder is deployed.
 
-
-
-3.  Version
-
-    Current & released version is 0.0.1 which includes complementary logic to process a compressed IoT Edge message with CompressionCSharpFnc.cs
-    using the same package as the IoT Edge module.  This code does not provide a mechanism to perform the opposite operation (compress message in the cloud and decompress on device) which would require a different function.
 
 # Build and Test
 
