@@ -8,7 +8,7 @@ After installing prerequisites, make sure to follow the instructions in the [Edg
 
 This workspace contains 2 folders:
 
-1. cloud- This folder contains an Azure Functions App project  as shown in the architecture diagram.  This Azure function project serves as the Cloud complement to the IoT Edge compression module code.  It demonstrates decompressing a compressed message which is sent from the IoT Edge module through Edge Hub and writing the decompressed message to Azure Blob Storage.
+1. cloud - This folder contains an Azure Functions App project as shown in the architecture diagram.  This Azure function project serves as the Cloud complement to the IoT Edge compression module code.  It receives a compressed message sent from the IoT Edge module through Edge Hub and decompresses the message, writing it to Azure Blob Storage.
 
 2. shared - This folder contains two .NET library projects - *Compression* and *CompressionTests*.  *Compression* is the compression library code used by both the Azure Fiunctions App project in this workspace and the Azure IoT Edge solution in the *edge* workspace. The *Compression* library uses the *GZipStream* compression class, included in the .NET Core Framework. *CompressionTests* is an xUnit.net unit test application.
 

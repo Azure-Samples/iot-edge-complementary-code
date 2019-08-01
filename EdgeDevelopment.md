@@ -53,7 +53,7 @@
 5. Set environment variables
 
    The Azure IoT Edge solution deployment manifests (*deployment.template.json* and *deployment.debug.template.json*) and module metadata files (*module.json*) support environment variable substitution.  There are 3 environment variable placeholders used in this sample - *$CONTAINER_REGISTRY_USERNAME*, *$CONTAINER_REGISTRY_PASSWORD* and *$CONTAINER_REGISTRY_ADDRESS*.  These are used to specify your container registry address and login credentials.  To run the code in the Azure IoT Edge Simulator, the *$CONTAINER_REGISTRY_ADDRESS* can be set to the Docker local registry container value of *localhost:5000*.  When using the local registry container value, the $CONTAINER_REGISTRY_USERNAME and $CONTAINER_REGISTRY_PASSWORD are not used.  However, since they are defined in the deployment manifests, they must be defined in order to avoid the "Please set registry credential to .env file." warning message on initial load.  
-   To protect secrets, *.env* files should no be included in source control. Therefore, this sample includes a *.env.temp* file that can be renamed to *.env* to build and run the sample in the Azure IoT Edge Simulator.  If you wish to deploy the solution to a real Edge device, make sure to set the values to your container registry.    
+   To protect secrets, *.env* files should not be included in source control. Therefore, this sample includes a *.env.temp* file that can be renamed to *.env* to build and run the sample in the Azure IoT Edge Simulator.  If you wish to deploy the solution to a real Edge device, make sure to set the values to your container registry.    
 
 6. Verify Docker runtime mode (**Windows only**)
 
