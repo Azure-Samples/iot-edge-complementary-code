@@ -15,7 +15,7 @@ This repo contains sample code which demonstrates the Complementary Code pattern
 
 It includes an Azure IoT Edge deployment solution to build a module which compresses messages sent to Azure IoT Hub from other Azure IoT Edge modules on the same Edge device or other downstream devices. For demonstration, the deployment also includes a message simulator module that plays back sample messages stored on disk in a loop.  
 
-The sample includes an Azure Functions solution to build an Azure Function to receive messages from Azure IoT Hub, decompress them and write them to Azure Blob Storage.  
+The sample includes an Azure Functions project to build an Azure Function to receive messages from Azure IoT Hub, decompress them and write them to Azure Blob Storage.  
 
 Finally, the compression/decompression code is shared across the Azure IoT Edge deployment solution and the Azure Functions solution. 
 
@@ -65,7 +65,7 @@ Install [Visual Studio Code](https://code.visualstudio.com/) first and then add 
 
 ####  Azure Functions Core Tools
 
-[Azure Functions Core Tools](https://github.com/Microsoft/vscode-azurefunctions/blob/master/README.md) is a version of the Azure Functions runtime for local development machine. It also provides commands to create functions, connect to Azure, and deploy function projects.
+[Azure Functions Core Tools](https://github.com/Microsoft/vscode-azurefunctions/blob/master/README.md) is a version of the Azure Functions runtime for local development machine. It also provides commands to create functions, connect to Azure, and deploy Azure Function projects.
 
 1. Make sure Node.js (8.5 or above) is installed and in the path
 
@@ -203,7 +203,7 @@ This sample only requires the local Azure Functions Core Tools.  An Azure Functi
 The Azure IoT Edge CompressionModule solution and Azure Functions app are designed to be run side-by-side in two instances of Visual Studio Code.  
 
 To run the sample, open the _edge.code-workspace_ and _cloud.code-workspace_ files in Visual Studio code under either the _csharp_ or _node_ language root folders, and follow the additional instructions in the *readme.md* files located in the _edge_ and _cloud_ folders in Visual Studio code workspaces. 
- 
+
 
 
 
