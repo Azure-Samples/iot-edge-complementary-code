@@ -211,7 +211,7 @@ This sample is designed to show module-to-module message flow and edge-to-cloud 
 
 If the modules are built with debug Dockerfiles, which include the debug versions of the .NET module code and the *vsdbg* .NET Core cross-platform debugger, Visual Studio Code can then connect to the debugger in the running module container.    
 
-# Build and Run the Sample
+# Build and run the sample
 
 This section provides instructions for building building and running the sample in the Simulator, and optionally attaching the Visual Studio Code debugger to the running modules.  The sample can also be pushed to your container registry and deployed to actual Edge device, by following the instructions in the [Tutorial: Develop a C# IoT Edge module for Linux devices](https://docs.microsoft.com/en-us/azure/iot-edge/tutorial-csharp-module).
 
