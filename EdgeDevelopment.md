@@ -1,4 +1,4 @@
-# Azure IoT Edge Development Environment Configuration
+# Configure Azure IoT Edge development environment
 
 1. Connect your Azure account to Visual Studio Code
 
