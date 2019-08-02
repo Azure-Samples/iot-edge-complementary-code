@@ -110,7 +110,7 @@ Below is the section of *deployment.debug.template.json* for the *CompressionMod
 
 The *image* key under the module *settings* can either contain a Docker container registry address and image tag (*mcr.microsoft.com/azureiotedge-simulated-temperature-sensor:1.0*) or a special placeholder in the format shown in the *CompressionModule* sample above.  The Azure IoT Edge extension uses these special placeholders to determine which module containers need to be built locally in the solution.  
 
-The *${MODULES.CompressionModule.debug}* placeholder indicates that the Azure IoT Edge extension should look for a *CompressionModule* subfolder folder in the *modules* folder of the solution.  By convention, it loads the module metadata file (*module.json*) in that subfolder to determine which Dockerfile to build.  Below is the module metadata file for the *CompressionModule*:
+The *${MODULES.CompressionModule.debug}* placeholder indicates that the Azure IoT Edge extension should look for a *CompressionModule* subfolder folder in the *modules* folder of the solution.  It then loads the module metadata file (*module.json*) in the *CompressionModule* subfolder to determine which Dockerfile to build.  Below is the module metadata file for the *CompressionModule*:
 
 ```json
 {
@@ -132,7 +132,7 @@ The *${MODULES.CompressionModule.debug}* placeholder indicates that the Azure Io
 }
 ```
 
-The Azure IoT Edge extension relies on the currently selected target platform to choose a key under *platforms*.  For this sample, only the *amd64* (Linux) target is supported in *CompressionModule* module metadata file, however many modules may support multiple target platforms.  The *.debug*  suffix on the placeholder in the deployment template (*deployment.debug.template.json*) indicates that the Azure IoT Edge extension should use the Dockerfile listed under the *amd64.debug* key.
+The Azure IoT Edge extension relies on the currently selected target platform to choose a key under *platforms*.  For this sample, only the *amd64* (Linux) target is supported in *CompressionModule* module metadata file, however many modules support multiple target platforms.  The *.debug*  suffix on the placeholder in the deployment template (*deployment.debug.template.json*) indicates that the Azure IoT Edge extension should use the Dockerfile listed under the *amd64.debug* key.
 
 The *module.json* file also contains keys that are used to construct the *docker build* command along with the Dockerfile name.  The *contextPath* key is used to set the Docker build context, which is explained more in the next section of this document.  The *buildOptions* key can be used to passed additional parameters to *docker build*. 
 
