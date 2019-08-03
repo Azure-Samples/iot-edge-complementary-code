@@ -6,7 +6,7 @@ The top level [README.md](../../README.md) in this repository provides an overvi
 
 This workspace contains 2 folders:
 
-1. cloud- This folder contains an Azure Functions project, which builds an Azure Function called *CompressionFnc*, as shown in the architecture diagram.  The *CompressionFnc* serves as the cloud complement to the Azure IoT Edge compression module code.  It demonstrates decompressing a compressed message which sent from the *CompressionModule* through your Azure IoT Edge Hub service and writing the decompressed message to Azure Blob Storage.
+1. cloud- This folder contains an Azure Functions project which builds the Azure Function (*CompressionFnc*) shown in the architecture diagram.  The *CompressionFnc* serves as the cloud complement to the Azure IoT Edge compression module (*CompressionModule*).  It demonstrates decompressing a compressed message which sent from the *CompressionModule* through your Azure IoT Edge Hub service and writing the decompressed message to Azure Blob Storage.
 
 2. shared - This folder contains two .NET library projects which are use in both the *edge* and *cloud* workspaces - *Compression* and *CompressionTests*.  
 
@@ -18,7 +18,7 @@ This workspace contains 2 folders:
 
 The method for sharing code between an Azure IoT Edge module and an Azure Function project varies according to the code platform and associated options for publishing and importing code. 
 
-.NET projects can leverage external code via direct references to another project or via references to downloaded NuGet packages. The *CompressionFnc* Azure Functions App project uses a direct project reference to leverage code in the *Compression* library project, located in the *shared/Compression* folder.  Below is the line from the *CompressionFnc.csproj* which references the *Compression.csproj*:
+.NET projects can leverage external code via direct references to another project or via references to downloaded NuGet packages. The *CompressionFnc* Azure Functions project uses a direct project reference to leverage code in the *Compression* library project, located in the *shared/Compression* folder.  Below is the line from the *CompressionFnc.csproj* which references the *Compression.csproj*:
 
 ```xml
   <ItemGroup>
@@ -28,23 +28,71 @@ The method for sharing code between an Azure IoT Edge module and an Azure Functi
 
 At build time, the .NET compiler copies the *Compression* library binaries to the binary output folder of the *CompressionFnc*.  
 
-# Getting Started
+# Unit Testing Complementary Code
 
-1. The Azure Functions runtime requires an Azure Blob Storage account to persist its runtime s
+As explained in the top level README.md in this repo, the Complementary Code pattern enables unit testing of shared code.  For the C#/.NET Core version of the sample, a *CompressionTests* *xUnit.net* unit test project is included in the *shared/CompressionTests* folder.  This sample shows several ways to run the unit tests in this project, both as part of the inner development loop and build pipeline.
 
-    T use this Azure function, copy the directory and open it within VS Code.
+The Visual Studio Code C# language extension recognizes *xUnit.net* projects and enables interactive running debugging of individual unit test methods.
 
-    You will need to update the value in `local.settings.json.temp`.  After updating, remove `.temp` from the filename (it is added with `.temp` to 
-    provide a way to upload the necessary placeholders without exposing secrets).
+![xunit debug image](C:/ComplementaryCode/csharp/edge/xunit.png)
 
-    You will need to add a Blob named `test-out` in your storage account, or a name of your choosing.  If you choose something different, update `test-out` 
-    in the parameters of the `CompressionCSharpFnc.cs` file.  Instead of *"test-out/{sys.randguid}"* it will be *"<your chosen name>/{sys.randguid}"*.
+Unfortunately, the C# language extension only activates on the primary folder in a Visual Studio code workspace.  To get the C# language extension to enable the interactive unit test support, switch the primary folder in Visual Studio code from *cloud* to *shared* by selecting the folder button ![folder icon](C:/ComplementaryCode/csharp/edge/folder.png)on the Visual Studio Code status bar.
+
+There is also a *test* task in the Visual Studio Code *tasks.json* configuration file in the *cloud* folder which invokes the *dotnet test* command on the *CompressionTests* project in the Visual Studio Code interactive terminal.  To run the *test* task, search for *Tasks: Run Task* from the Visual Studio Code command palette and select *test* from the task list.
+
+# Configure Azure Functions development environment
+
+After installing prerequisites, there is one additional step to configure your development environment before building and running the sample. The *CompressionFnc* Azure Function requires 3 connection strings to run - *AzureWebJobsStorage*, *IoTHubEventHubEndpoint* and *OutputBlobConnectionString*.  
+
+*AzureWebJobsStorage* is a special built-in connection string that the Azure Functions runtime uses to connect to a storage account it uses for state management.
+
+> **Note:** AzureWebJobsStorage is required for all Azure Function types except HTTP triggered functions.
+
+The *CompressionFnc* receives compressed messages from your Azure IoT Hub service via the [Azure Functions IoT Hub binding](https://docs.microsoft.com/en-us/azure/azure-functions/functions-bindings-event-iot).  Azure Functions accesses Azure IoT Hub messages at the the Azure IoT Hub's built-in [Event Hub compatible endpoint](https://docs.microsoft.com/en-us/azure/iot-hub/iot-hub-devguide-messages-read-builtin#read-from-the-built-in-endpoint).  *IoTHubEventHubEndpoint* is the connection string to the Azure IoT Hub's Event Hub compatible endpoint.  It can be found in the Azure Portal: 
+
+1. Sign in to the [Azure portal](https://portal.azure.com/) and navigate to your IoT hub
+2. Click *Built-in endpoints*
+3. Copy the value of  *Event Hub-compatible endpoint* under *Events*
+
+The CompressionFnc decompressed message and writes them to an Azure Blob Storage account using the Azure Functions Blob Storage binding.  The last connection string, *OutputBlobConnectionString* is the connection string of an Azure Blob Storage account where the *CompressionFnc* will write decompressed messages received from your Azure IoT Hub.  
+
+> **Note:** For production, separate Azure Blob Storage accounts should be used for *AzureWebJobsStorage* and *OutputBlobConnectionString*.  For development, the same Azure Blob Storage account can be used for both, or the Azure Storage Emulator can be used for both on Windows.  For the Azure Storage Emulator, the connection string value is *UseDevelopmentStorage=true*
+
+Connection string and other secrets should not be stored in application code or any other file that is checked into source control.   The recommended way to pass connection string and other secrets to an Azure Function is through environment variables.  Azure Function bindings implicitly use environment variables, as shown in the code below which references the *IoTHubEventHubEndpoint* and *OutputBlobConnectionString* environment variables:
+
+
+```csharp
+       ...
+       [FunctionName("CompressionFnc")]
+        public static async Task Run(
+            [IoTHubTrigger("messages/events", ConsumerGroup = "$Default", Connection = "IoTHubEventHubEndpoint")]EventData message,
+            [Blob("test-out/{sys.randguid}", FileAccess.Write, Connection = "OutputBlobConnectionString")] Stream output,
+            ILogger log)
+        {
+        ...
+```
+User code in an Azure Function can retrieve environment variables directly using language/platform specific API's.  C#/.NET functions can use the *Environment.GetEnvironmentVariable* API.
+
+Environment variables are part of the set You will need to update the value in `local.settings.json.temp`.  After updating, remove `.temp` from the filename (it is added with `.temp` to 
+provide a way to upload the necessary placeholders without exposing secrets).
+
+You will need to add a Blob named `test-out` in your storage account, or a name of your choosing.  If you choose something different, update `test-out` 
+in the parameters of the `CompressionCSharpFnc.cs` file.  Instead of *"test-out/{sys.randguid}"* it will be *"<your chosen name>/{sys.randguid}"*.
+
+# Build and run the sample
+
+This section provides instructions for building building and running the sample in the Azure Functions local runtime.  The sample can also be pushed to your Azure Functions App by following the instructions in the [Tutorial: Develop a C# IoT Edge module for Linux devices](https://docs.microsoft.com/en-us/azure/iot-edge/tutorial-csharp-module).
+
+
+
+1. 
 
     
+
     
-    
-    
-    https://docs.microsoft.com/en-us/azure/azure-functions/functions-create-first-function-vs-code#publish-the-project-to-azure
+   
+
+https://docs.microsoft.com/en-us/azure/azure-functions/functions-create-first-function-vs-code#publish-the-project-to-azure
     
     
 
