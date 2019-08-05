@@ -3,7 +3,7 @@
 ## Core Pattern 
 In developing IoT solutions, there is often a need to perform one operation on the device and another complementary operation in the cloud or vice versa. Complementary operations such as compression/decompression, batching/shredding, encryption/decryption, encoding/decoding allow data to be transformed in one location and fully recovered in the other.  For example, compression/decompression enables sending smaller amounts of data and batching/shredding enables sending multiple messages in one transmission. 
 
-In addition to the benefits of code reuse, separating out complementary code helps with unit testing, which can be  difficult for Azure IoT Edge Modules as well as many cloud services.  Azure IoT Edge Modules rely on a *ModuleClient* object to communicate with the Azure IoT Hub service.  The *ModuleClient* object can only be instantiated while the module is executing under the Azure IoT Edge runtime.  Likewise, user code in many cloud services is also difficult to unit test because the code relies on infrastructure that is only present when running in the cloud service environment.  For example, Azure Functions communicate with other Azure services via runtime *bindings* that are surfaced as various runtime objects in the supported languages.  By separating the complementary code and other business logic into a library, unit testing can follow a familiar pattern once again, minimizing the amount of code that can old be exercised through integration testing.
+In addition to the benefits of code reuse, separating out complementary code helps with unit testing, which can be  difficult for Azure IoT Edge Modules as well as many cloud services.  Azure IoT Edge Modules rely on a *ModuleClient* object to communicate with the Azure IoT Hub service.  The *ModuleClient* object can only be instantiated while the module is executing under the Azure IoT Edge runtime.  Likewise, user code in many cloud services is also difficult to unit test because the code relies on infrastructure that is only present when running in the cloud service environment.  For example, Azure Functions communicate with other Azure services via runtime *bindings* that are surfaced as various runtime objects in the supported languages.  By separating the complementary code and other business logic into a library, unit testing can follow a familiar pattern once again, minimizing the amount of code that can be exercised through integration testing.
 
 This sample demonstrates the Complementary Code pattern using compression/decompression, as shown below:
 
@@ -19,9 +19,9 @@ The sample includes an Azure Functions project to build an Azure Function to rec
 
 Finally, the compression/decompression code is shared across the Azure IoT Edge deployment solution and the Azure Functions solution. 
 
-Versions of sample code are provided in both C#/.NET Core and Node.js.  The _csharp_ and _node_ folders are the root folders for the C#/.NET Core and Node.js versions of this sample respectively.  The root folders contain four directories - _edge_, _cloud_, _shared_, and _messages_.
+Versions of sample code are provided in both C#/.NET Core and Node.js.  The _csharp_ and _node_ folders are the root folders for the C#/.NET Core and Node.js versions of this sample respectively.  The root folders contain four directories - _cloud_ , _edge_, _messages_ and _shared_.
 
-The _edge_ folder contains the Azure IoT Edge deployment solution to build the compression module, while the _cloud_ folder contains the Azure Functions project to receive messages from Azure IoT Hub, decompress the messages and write the messages to Azure Blob Storage.  The _shared_ folder contains the compression and decompression code used by both the compression module and Azure Function, along with unit tests for the shared code.  The _messages_ folder contains test messages that are played back by the message simulator module, which is included in the Azure IoT Edge deployment solution.
+The _edge_ folder contains the Azure IoT Edge deployment solution to build the compression module, while the _cloud_ folder contains the Azure Functions project to receive messages from Azure IoT Hub, decompress the messages and write the messages to Azure Blob Storage.  The _shared_ folder contains the compression and decompression code used by both the IoT Edge compression module and Azure Function, along with unit tests for the shared code.  The _messages_ folder contains test messages that are played back by the message simulator module, which is included in the Azure IoT Edge deployment solution.
 
 The sample code is configured to build and run in [Visual Studio Code](https://code.visualstudio.com/) (aka VSCode).  Visual Studio Code is a Microsoft cross platform code editor, which also includes powerful developer tooling, like IntelliSense code completion and debugging.  Visual Studio Code is available on Windows, Mac, and Linux and supports C# and Node debugging for Azure IoT Edge modules.
 
@@ -106,7 +106,7 @@ This sample only requires the local Azure Functions Core Tools.  An Azure Functi
 [Create an Azure Functions App](https://docs.microsoft.com/en-us/azure/azure-functions/functions-create-first-azure-function#create-a-function-app)
 
 #### Azure Container Registry (optional)
-This sample can be built and run in the local Azure IoT Edge Simulator without pushing Azure IoT Edge modules to a container registry.  A container registry is only needed when deploying to actual Azure IoT Edge device.  Any Docker container registry can be used, including DockerHub and Azure Container Registry.
+This sample can be built and run in the local Azure IoT Edge Simulator without pushing Azure IoT Edge modules to a container registry.  A container registry is only needed when deploying to an actual Azure IoT Edge device.  Any Docker container registry can be used, including DockerHub and Azure Container Registry.
 
 [Create an Azure Container Registry](https://docs.microsoft.com/en-us/azure/container-registry/container-registry-get-started-portal)
 
@@ -115,5 +115,3 @@ This sample can be built and run in the local Azure IoT Edge Simulator without p
 The Azure IoT Edge solution (*edge* folder) and Azure Functions app (*cloud* folder) are designed to be run side-by-side in two instances of Visual Studio Code.  
 
 To run the sample, open the _edge.code-workspace_ and _cloud.code-workspace_ files in Visual Studio code under either the _csharp_ or _node_ language root folders, and follow the additional instructions in the *README.md* files located in the _edge_ and _cloud_ folders in the Visual Studio code workspaces. 
-
-
