@@ -15,7 +15,7 @@ This repo contains sample code which demonstrates the Complementary Code pattern
 
 It includes an Azure IoT Edge deployment solution to build a module which compresses messages sent to Azure IoT Hub from other Azure IoT Edge modules on the same Edge device or other downstream devices. For demonstration, the deployment also includes a message simulator module that plays back sample messages stored on disk in a loop.  
 
-The sample includes an Azure Functions solution to build an Azure Function to receive messages from Azure IoT Hub, decompress them and write them to Azure Blob Storage.  
+The sample includes an Azure Functions project to build an Azure Function to receive messages from Azure IoT Hub, decompress them and write them to Azure Blob Storage.  
 
 Finally, the compression/decompression code is shared across the Azure IoT Edge deployment solution and the Azure Functions solution. 
 
@@ -65,7 +65,7 @@ Install [Visual Studio Code](https://code.visualstudio.com/) first and then add 
 
 ####  Azure Functions Core Tools
 
-[Azure Functions Core Tools](https://github.com/Microsoft/vscode-azurefunctions/blob/master/README.md) is a version of the Azure Functions runtime for local development machine. It also provides commands to create functions, connect to Azure, and deploy function projects.
+[Azure Functions Core Tools](https://github.com/Microsoft/vscode-azurefunctions/blob/master/README.md) is a version of the Azure Functions runtime for local development machine. It also provides commands to create functions, connect to Azure, and deploy Azure Function projects.
 
 1. Make sure Node.js (8.5 or above) is installed and in the path
 
@@ -81,6 +81,10 @@ Install [Visual Studio Code](https://code.visualstudio.com/) first and then add 
 Azure Blob Storage is required for the Azure Functions runtime for internal state management.  The Azure Function in this sample also writes decompressed messages to an Azure Storage account. 
 
 When running this sample locally on **Windows**, the Azure Storage Emulator can be used instead of creating an Azure Storage account.
+
+#### Azure Storage Explorer (optional)
+
+[Azure Storage Explorer]() provides a GUI for connecting to and managing Azure storage accounts and Azure Cosmos DB entities.  Azure Storage Emulator can be used to view and download blobs output by the sample, both in your Azure Storage account or the Azure Storage Emulator.
 
 ### Azure Prerequisites 
 
