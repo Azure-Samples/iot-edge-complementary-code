@@ -1,5 +1,5 @@
 # Overview 
-This is the README file for the C# *edge* Visual Studio workspace (*edge.code-workspace*),  part of the C#/.NET Core version of the Complementary Code Pattern sample.  It is intended to be built and run with the companion code in the *cloud* workspace (*cloud.code-workspace*) in the same folder.  Both workspaces can be open simultaneously in different instances of Visual Studio Code.
+This is the README file for the C# *edge* Visual Studio workspace (*edge.code-workspace*),  part of the C#/.NET Core version of the Complementary Code Pattern sample.  It is intended to be built and run with the companion code in the *cloud* workspace (*cloud.code-workspace*) located in the same folder.  Both workspaces can be open simultaneously in different instances of Visual Studio Code.
 
 ------
 
@@ -195,7 +195,7 @@ The Visual Studio Code C# language extension recognizes *xUnit.net* projects and
 
 Unfortunately, the C# language extension only activates on the primary folder in a Visual Studio code workspace.  To get the C# language extension to enable the interactive unit test support, switch the primary folder in Visual Studio code from *edge* to *shared* by selecting the folder button ![folder icon](./folder.png)on the Visual Studio Code status bar.
 
-There is also a *test* task in the Visual Studio Code *tasks.json* configuration file in the *edge* folder which invokes the *dotnet test* command on the *CompressionTests* project in the Visual Studio Code interactive terminal.  To run the *test* task, search for *Tasks: Run Task* from the Visual Studio Code command palette and select *test* from the task list.
+There is also a *test* task in the Visual Studio Code *tasks.json* configuration file in the *edge* folder.  This task invokes the *dotnet test* command on the *CompressionTests* project in the Visual Studio Code interactive terminal.  To run the *test* task, search for *Tasks: Run Task* from the Visual Studio Code command palette and select *test* from the task list.
 
 Finally, the debug version of the *CompressionModule* Dockerfile (*Dockerfile.amd64.debug*) is setup to build and run the unit tests in *CompressionTests* as part of the Dockerfile build.  This demonstrates how to incorporate unit tests into the Azure IoT Edge module build pipeline, and ensure all relevant unit tests succeed before the Edge module container can be built.
 
