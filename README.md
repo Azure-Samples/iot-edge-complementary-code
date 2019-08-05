@@ -82,6 +82,10 @@ Azure Blob Storage is required for the Azure Functions runtime for internal stat
 
 When running this sample locally on **Windows**, the Azure Storage Emulator can be used instead of creating an Azure Storage account.
 
+#### Azure Storage Explorer (optional)
+
+[Azure Storage Explorer]() provides a GUI for connecting to and managing Azure storage accounts and Azure Cosmos DB entities.  Azure Storage Emulator can be used to view and download blobs output by the sample, both in your Azure Storage account or the Azure Storage Emulator.
+
 ### Azure Prerequisites 
 
 #### Azure IoT Hub Service
