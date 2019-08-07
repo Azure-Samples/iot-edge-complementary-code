@@ -42,8 +42,6 @@ Debugging C# Azure IoT Edge Modules in Visual Studio Code
     You will need to add a Blob named `test-out` in your storage account, or a name of your choosing.  If you choose something different, update `test-out` 
     in the parameters of the `CompressionCSharpFnc.cs` file.  Instead of *"test-out/{sys.randguid}"* it will be *"<your chosen name>/{sys.randguid}"*.
 
-    
-
 
 # Build and Test
 
