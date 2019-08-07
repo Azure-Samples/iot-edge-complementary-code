@@ -34,7 +34,17 @@
         "command": "host start",
         "isBackground": true,
         "problemMatcher": "$func-watch"
-      }
+      },
+      {
+        "label": "test",
+        "command": "dotnet",
+        "type": "process",
+        "args": [
+            "test",
+            "${workspaceFolder}../../shared/CompressionTests/CompressionTests.csproj"
+        ],
+        "problemMatcher": "$tsc"
+    }
     ]
   }
   
