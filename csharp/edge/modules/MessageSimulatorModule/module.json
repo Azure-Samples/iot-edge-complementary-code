@@ -8,7 +8,7 @@
             "platforms": {
                 "amd64": "./Dockerfile.amd64", 
                 "amd64.debug": "./Dockerfile.amd64.debug"
-             
+
             }
         },
         "buildOptions": [],

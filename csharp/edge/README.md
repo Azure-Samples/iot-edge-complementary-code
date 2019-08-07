@@ -13,13 +13,13 @@ This is the README file for the C# *edge* Visual Studio workspace (*edge.code-wo
 
 ------
 
-The top level [README.md](../../README.md) in this repository provides an overview of the Complementary Code sample, including an architecture diagram, along with prerequisites for building and running the sample code.
+The top level [README.md](../../README.md) in this repository provides an overview of the Complementary Code with compression and decompression sample, including an architecture diagram, along with prerequisites for building and running the sample code.
 
 After installing prerequisites, make sure to follow the instructions in the [EdgeDevelopment.md](../../EdgeDevelopment.md) to configure your development environment for building the samples.  
 
 This workspace contains 3 folders:
 
-1. edge - This folder contains an Azure IoT Edge solution consists of the two IoT Edge modules shown in the architecture diagram - the compression module (*CompressionModule*) and a message simulator module (*MessageSimulatorModule*).  The *MessageSimulatorModule* generates messages which are compressed by the *CompressionModule* and forwarded to to your Azure IoT Hub service.
+1. edge - This folder contains an Azure IoT Edge solution which consists of the two IoT Edge modules shown in the architecture diagram - the compression module (*CompressionModule*) and a message simulator module (*MessageSimulatorModule*).  The *MessageSimulatorModule* generates messages which are compressed by the *CompressionModule* and forwarded to to your Azure IoT Hub service.
 
    The *CompressionModule* is designed to illustrate the Complementary Code pattern to share logic between Edge components and the Cloud.  The *CompressionModule* project file references the *Compression* .NET library, located in the *shared/Compression* folder. 
 
@@ -33,14 +33,14 @@ This workspace contains 3 folders:
 
 3. messages - This folder contains test data messages that are played back by the *MessageSimulatorModule*.
 
-This sample assumes basic familiarity with Azure IoT Edge Modules and how to build them with Visual Studio Code.  For an introduction to building an IoT Edge Modules in C#, refer to 
+This sample assumes basic familiarity with Azure IoT Edge Modules and how to build them with Visual Studio Code.  For an introduction to building IoT Edge Modules in C#, refer to 
 [Tutorial: Develop a C# IoT Edge module for Linux devices](https://docs.microsoft.com/en-us/azure/iot-edge/tutorial-csharp-module).
 
 # Understanding Azure IoT Edge solutions
 
 Azure IoT Edge Solutions in Visual Studio Code are organized by a root folder containing the [Azure IoT Edge Deployment manifests](https://docs.microsoft.com/en-us/azure/iot-edge/module-composition) (*deployment.template.json* and *deployment.debug.template.json*) and a *modules* subfolder, which contains a folder for each module built by the solution.  
 
-Each module folder contains a module metadata file (*module.json*), a Dockerfile for each support platform + debug/release combination,  and the language specific code for building the module (C#, Node.js, Python, etc.).  C#/.NET Core Azure IoT Edge modules are build as .NET Core console applications, so each module folder also contains a .NET Core project file.  
+Each module folder contains a module metadata file (*module.json*), a Dockerfile for each support platform + debug/release combination,  and the language specific code for building the module (C#, Node.js, Python, etc.).  C#/.NET Core Azure IoT Edge modules are built as .NET Core console applications, so each module folder also contains a .NET Core project file.  
 
 The Azure IoT Edge Visual Studio Code extension recognizes this Azure IoT Edge solution folder structure and activates when the root folder is opened in Visual Studio code or as a workspace folder in Visual Studio Code.  
 
@@ -110,7 +110,7 @@ Below is the section of *deployment.debug.template.json* for the *CompressionMod
 
 The *image* key under the module *settings* can either contain a Docker container registry address and image tag (*mcr.microsoft.com/azureiotedge-simulated-temperature-sensor:1.0*) or a special placeholder in the format shown in the *CompressionModule* sample above.  The Azure IoT Edge extension uses these special placeholders to determine which module containers need to be built locally in the solution.  
 
-The *${MODULES.CompressionModule.debug}* placeholder indicates that the Azure IoT Edge extension should look for a *CompressionModule* subfolder folder in the *modules* folder of the solution.  It then loads the module metadata file (*module.json*) in the *CompressionModule* subfolder to determine which Dockerfile to build.  Below is the module metadata file for the *CompressionModule*:
+The *${MODULES.CompressionModule.debug}* placeholder indicates that the Azure IoT Edge extension should look for a *CompressionModule* subfolder in the *modules* folder of the solution.  It then loads the module metadata file (*module.json*) in the *CompressionModule* subfolder to determine which Dockerfile to build.  Below is the module metadata file for the *CompressionModule*:
 
 ```json
 {
@@ -177,7 +177,7 @@ The solution is to raise the docker context so that it has access to folders abo
 ```
 This setting is used in both *CompressionModule* and *MessageSimulatorModule* to raise the Docker context to the *csharp* root folder of the repo.  This allows the *CompressionModule* Dockerfile to access the *Compression* library and the *MessageSimulatorModule* Dockerfile to access the sample messages in the *messages* folder.
 
-However, there is one problem with having the Docker build context at this level.  During a build, the Docker client sends all of the files in the Docker context to the Docker server in a tar file.  With the Docker context at the *csharp* folder level, all the code under the *cloud* subfolder is incorrectly included in the Docker context.  When running the Docker server locally, this overhead may not be noticeable, but it is still unnecessary overhead in the build process.  To be as efficient as possible the *cloud* folder should not be included in the Docker context.
+However, there is one problem with having the Docker build context at this level.  During a build, the Docker client sends all of the files in the Docker context to the Docker server in a *tar* file.  With the Docker context at the *csharp* folder level, all the code under the *cloud* subfolder is incorrectly included in the Docker context.  When running the Docker server locally, this overhead may not be noticeable, but it is still unnecessary overhead in the build process.  To be as efficient as possible the *cloud* folder should not be included in the Docker context.
 
 Luckily, there is an easy solution to filter out unwanted files from the Docker build context.  Docker supports a *.dockerignore* file, which contains a list of excluded directories and file patterns.  Below is the a line from the *.dockerignore* file in the *csharp* directory which excludes the *cloud* folder from the Edge module docker builds.
 
@@ -207,7 +207,7 @@ While Visual Studio Code can be used to connect to and debug a module running on
 
 The Azure IoT Edge Simulator actually supports two modes for running and debugging modules - single module mode and solution mode.  The single module mode allows a module to be run and debugged as an ordinary .NET Core application outside of a Docker container.  While this simplifies the inner development loop, single module mode only supports limited module functionality.  Neither Module Twins or Direct Methods are supported in single module mode, and each message must be manually passed to the module via a special HTTP interface.  And, as the name implies, only single module can be run at a time, so testing module interactions is not possible. A single module debug configuration named "MessageSimulatorModule Local Debug (.NET Core)" is, however, included in the *launch.json* Visual Studio Code configuration file. To learn more about Azure IoT Edge Simulator debugging in single module mode, refer to [Debug a module without a container (C#, Node.js, Java)](https://docs.microsoft.com/en-us/azure/iot-edge/how-to-vs-code-develop-module#set-up-iot-edge-simulator-for-single-module-app)
 
-This sample is designed to show module-to-module message flow and edge-to-cloud message flow from from Azure IoT Edge modules to an Azure Function, so it is intended to be run and debugged under the Azure IoT Edge Simulator in solution mode.  When running in solution mode, the Azure IoT Edge Simulator uses Docker Compose to deploy all modules in the deployment manifest to the local Docker server.  
+This sample is designed to show module-to-module message flow and edge-to-cloud message flow from an Azure IoT Edge module to an Azure Function, so it is intended to be run and debugged under the Azure IoT Edge Simulator in solution mode.  When running in solution mode, the Azure IoT Edge Simulator uses Docker Compose to deploy all modules in the deployment manifest to the local Docker server.  
 
 If the modules are built with debug Dockerfiles, which include the debug versions of the .NET module code and the *vsdbg* .NET Core cross-platform debugger, Visual Studio Code can then connect to the debugger in the running module container.    
 
@@ -220,7 +220,7 @@ This section provides instructions for building building and running the sample 
 
    - Enable debugger wait code
 
-     Debugging Azure IoT modules running in the simulator requires starting the debug build module, and subsequently attaching the vsdbg debugger from Visual Studio Code.  Because of this 2 step process, module initialization usually takes place before the debugger is available.  Both .NET modules in this sample use a debugger wait code strategy to stop program flow execution until the debugger attaches.  This allows debugging of module initialization code.  Below is the code that is added to the module initialization method (*Program.Init*).
+     Debugging Azure IoT modules running in the simulator requires starting the debug build module, and subsequently attaching the vsdbg debugger from Visual Studio Code.  Because of this two step process, module initialization usually takes place before the debugger is available.  Both .NET modules in this sample use a debugger wait code strategy to stop program flow execution until the debugger attaches.  This allows debugging of module initialization code.  Below is the code that is added to the module initialization method (*Program.Init*).
 
      ```csharp
             static async Task Init(bool debug = false)

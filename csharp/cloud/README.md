@@ -83,7 +83,7 @@ When running Azure Functions in your local development environment with the Azur
 
 # Build and run the sample
 
-This section provides instructions for building building and running the sample in the Azure Functions local runtime.  The sample can also be pushed to your Azure Function App by following the instructions in the article [Publish the project to Azure](https://docs.microsoft.com/en-us/azure/azure-functions/functions-create-first-function-vs-code#publish-the-project-to-azure).
+This section provides instructions for building and running the sample in the Azure Functions local runtime.  The sample can also be pushed to your Azure Function App by following the instructions in the article [Publish the project to Azure](https://docs.microsoft.com/en-us/azure/azure-functions/functions-create-first-function-vs-code#publish-the-project-to-azure).
 
 There are several Visual Studio tasks created by the Azure Functions extension - *build*, *clean release*, *publish* and *func*. The *func* task will run your functions locally in the Azure Functions Core Tools.  To run these tasks, search for *Tasks: Run Task* from the Visual Studio Code command palette and select the from the task list.
 
