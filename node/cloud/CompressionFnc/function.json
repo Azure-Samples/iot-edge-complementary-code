@@ -14,7 +14,7 @@
     {
       "name": "outputBlob",
       "type": "blob",
-      "path": "test-out/{rand-guid}.json",
+      "path": "test-out/{rand-guid}.xml",
       "connection": "OutputBlobConnectionString",
       "direction": "out"      
     }
