@@ -85,10 +85,10 @@ When running Azure Functions in your local development environment with the Azur
 
 This section provides instructions for building and running the sample in the Azure Functions local runtime.  The sample can also be pushed to your Azure Function App by following the instructions in the article [Publish the project to Azure](https://docs.microsoft.com/en-us/azure/azure-functions/functions-create-first-function-vs-code#publish-the-project-to-azure).
 
-There are several Visual Studio tasks created by the Azure Functions extension - *build*, *clean release*, *publish* and *func*. The *func* task will run your functions locally in the Azure Functions Core Tools.  To run these tasks, search for *Tasks: Run Task* from the Visual Studio Code command palette and select the from the task list.
+There are several Visual Studio Code tasks created by the Azure Functions extension - *build*, *clean release*, *publish* and *func*. The *func* task will run your functions locally in the Azure Functions Core Tools.  To run these tasks, search for *Tasks: Run Task* from the Visual Studio Code command palette and select the from the task list.
 
 The easiest way to run your functions is to simply start your functions in the Visual Studio Code debugger.   Select the Debug icon in the Activity Bar on the side of Visual Studio Code.  You should see *Attach to C# Functions* in the Debug configuration dropdown. Start your debug session by pressing F5 or selecting the play button next to the Configuration dropdown.
 
-You should see Azure Functions local runtime status messages in the Visual Studio integrated terminal.  Once the *CompressionFnc* starts reading messages from your Azure IoT Hub, you should see output showing the decompressed messages.  The messages are several aviation weather reports for New York area airports in XML format.
+You should see Azure Functions local runtime status messages in the Visual Studio Code integrated terminal.  Once the *CompressionFnc* starts reading messages from your Azure IoT Hub, you should see output showing the decompressed messages.  The messages are several aviation weather reports for New York area airports in XML format.
 
-The *CompressionFnc* also writes decompressed messages to either the Azure Storage Emulator or your Azure Storage account.  The messages are written to output blobs in the format *"test-out/{sys.randguid}"*.  Azure Storage Explorer can be also used to download and view the output blobs.
+The *CompressionFnc* also writes decompressed messages to either the Azure Storage Emulator or your Azure Storage account.  The messages are written to output blobs in the format *"test-out/{sys.randguid}.xml"*.  Azure Storage Explorer can be also used to download and view the output blobs.
