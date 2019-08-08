@@ -110,8 +110,8 @@
       "properties.desired": {
         "schemaVersion": "1.0",
         "routes": {
-          "SimulatorModuleToCompressionModule": "FROM /messages/modules/MessageSimulatorModule/outputs/* INTO BrokeredEndpoint(\"/modules/CompressionModule/inputs/compressMessage\")",
-          "CompressionModuleToIoTHub": "FROM /messages/modules/CompressionModule/outputs/* INTO $upstream"
+          "SimulatorToCompression": "FROM /messages/modules/MessageSimulatorModule/outputs/* INTO BrokeredEndpoint(\"/modules/CompressionModule/inputs/compressMessage\")",
+          "CompressionToIoTHub": "FROM /messages/modules/CompressionModule/outputs/* INTO $upstream"
         },
         "storeAndForwardConfiguration": {
           "timeToLiveSecs": 7200
