@@ -3,5 +3,6 @@
   "azureFunctions.projectLanguage": "JavaScript",
   "azureFunctions.templateFilter": "Verified",
   "azureFunctions.deploySubpath": ".",
-  "debug.internalConsoleOptions": "openOnSessionStart"
+  "debug.internalConsoleOptions": "openOnSessionStart",
+  "azureFunctions.preDeployTask": "npm prune"
 }
