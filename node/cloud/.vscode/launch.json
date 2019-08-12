@@ -6,7 +6,7 @@
     "configurations": [
         
         {
-      "name": "Attach to Azure Functions",
+      "name": "Attach to Node Functions",
       "type": "node",
       "request": "attach",
       "port": 9228,

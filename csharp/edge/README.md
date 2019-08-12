@@ -138,7 +138,7 @@ The *module.json* file also contains keys that are used to construct the *docker
 
 > Note:  The Azure IoT Edge Simulator uses Docker Compose when running in solution mode.  The *createOptions* key under the module settings in the deployment manifest can be used to pass [*docker create* options](https://docs.docker.com/engine/api/v1.30/#operation/ContainerCreate), such as exposed ports, volume mounts, host configuration, etc., to the Azure IoT Edge Simulator for use in container creation.
 
-Azure IoT Edge extension creates two deployments manifests, *deployment.template.json* and *deployment.debug.template.json*, when scaffolding a new Azure IoT Edge solution.  The *deployment.debug.template.json* version allows for the creation of separate debug Docker images for debugging.  C#/.NET Core debug Dockerfiles install the *vsdbg* cross-platform .NET debugger and build debug versions of the module .NET Core console application.  The *CompressionModule* debug Dockerfile in this sample also includes  a step to run unit test code in the container.
+Azure IoT Edge extension creates two deployments manifests, *deployment.template.json* and *deployment.debug.template.json*, when scaffolding a new Azure IoT Edge solution.  The *deployment.debug.template.json* version allows for the creation of separate Docker images for debugging.  C#/.NET Core debug Dockerfiles install the *vsdbg* cross-platform .NET debugger and build debug versions of the module .NET Core console application.  The *CompressionModule* debug Dockerfile in this sample also includes  a step to run unit test code in the container.
 
 Azure IoT Edge routes are also defined in the deployment manifests, under the *$edgeHub* desired properties.  Below are the routes defined for this sample:
 ```json

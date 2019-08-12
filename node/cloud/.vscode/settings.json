@@ -3,10 +3,6 @@
   "azureFunctions.projectLanguage": "JavaScript",
   "azureFunctions.templateFilter": "Verified",
   "azureFunctions.deploySubpath": ".",
-  "azureFunctions.preDeployTask": "func: extensions install",
-  "files.exclude": {
-    "obj": true,
-    "bin": true
-  },
-  "debug.internalConsoleOptions": "openOnSessionStart"
+  "debug.internalConsoleOptions": "openOnSessionStart",
+  "azureFunctions.preDeployTask": "npm prune"
 }

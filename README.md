@@ -51,15 +51,24 @@ Install [Visual Studio Code](https://code.visualstudio.com/) first and then add 
 
 - [Azure Functions](https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-azurefunctions)
 
-**Note**: Extensions can be installed either via links to the Visual Studio Code Marketplace above or by searching extensions by name in the Marketplace from the Extensions tab in Visual Studio Code.
+> **Note**: Extensions can be installed either via links to the Visual Studio Code Marketplace above or by searching extensions by name in the Marketplace from the Extensions tab in Visual Studio Code.
+
+#### ESLint (optional)
+
+Due to the Azure IoT Edge solution folder structure, ESLint must be installed globally to work with  Node.js Azure IoT Edge module JavaScript files.  
+
+```bash
+npm install -g eslint
+```
 
 #### Azure IoT EdgeHub Dev Tool
+
 [Azure IoT EdgeHub Dev Tool](https://pypi.org/project/iotedgehubdev/)  is a version of the Azure IoT Edge runtime for local development machine. 
 
 1. Make sure Python and Pip (2.7/3.6 or above) are installed and in the path
 2. Install **[iotedgehubdev](https://pypi.org/project/iotedgehubdev/)** with Pip:
 
-   ```cmd
+   ```bash
    pip install --upgrade iotedgehubdev
    ```
 
