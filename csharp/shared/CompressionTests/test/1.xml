@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<response xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XML-Schema-instance" version="1.2" xsi:noNamespaceSchemaLocation="http://aviationweather.gov/adds/schema/metar1_2.xsd">
+  <request_index>35182824</request_index>
+  <data_source name="metars" />
+  <request type="retrieve" />
+  <errors />
+  <warnings />
+  <time_taken_ms>224</time_taken_ms>
+  <data num_results="9">
+    <METAR>
+      <raw_text>KEWR 101351Z 26006KT 10SM FEW040 BKN250 29/18 A3004 RMK AO2 SLP173 T02940183</raw_text>
+      <station_id>KEWR</station_id>
+      <observation_time>2019-07-10T13:51:00Z</observation_time>
+      <latitude>40.68</latitude>
+      <longitude>-74.17</longitude>
+      <temp_c>29.4</temp_c>
+      <dewpoint_c>18.3</dewpoint_c>
+      <wind_dir_degrees>260</wind_dir_degrees>
+      <wind_speed_kt>6</wind_speed_kt>
+      <visibility_statute_mi>10.0</visibility_statute_mi>
+      <altim_in_hg>30.041338</altim_in_hg>
+      <sea_level_pressure_mb>1017.3</sea_level_pressure_mb>
+      <quality_control_flags>
+        <auto_station>TRUE</auto_station>
+      </quality_control_flags>
+      <sky_condition sky_cover="FEW" cloud_base_ft_agl="4000" />
+      <sky_condition sky_cover="BKN" cloud_base_ft_agl="25000" />
+      <flight_category>VFR</flight_category>
+      <metar_type>SPECI</metar_type>
+      <elevation_m>7.0</elevation_m>
+    </METAR>
+    <METAR>
+      <raw_text>KJFK 101351Z 24005KT 10SM FEW042 BKN260 29/21 A3005 RMK AO2 SLP176 T02890206</raw_text>
+      <station_id>KJFK</station_id>
+      <observation_time>2019-07-10T13:51:00Z</observation_time>
+      <latitude>40.63</latitude>
+      <longitude>-73.77</longitude>
+      <temp_c>28.9</temp_c>
+      <dewpoint_c>20.6</dewpoint_c>
+      <wind_dir_degrees>240</wind_dir_degrees>
+      <wind_speed_kt>5</wind_speed_kt>
+      <visibility_statute_mi>10.0</visibility_statute_mi>
+      <altim_in_hg>30.050198</altim_in_hg>
+      <sea_level_pressure_mb>1017.6</sea_level_pressure_mb>
+      <quality_control_flags>
+        <auto_station>TRUE</auto_station>
+      </quality_control_flags>
+      <sky_condition sky_cover="FEW" cloud_base_ft_agl="4200" />
+      <sky_condition sky_cover="BKN" cloud_base_ft_agl="26000" />
+      <flight_category>VFR</flight_category>
+      <metar_type>METAR</metar_type>
+      <elevation_m>9.0</elevation_m>
+    </METAR>
+    <METAR>
+      <raw_text>KLGA 101351Z 31005KT 10SM FEW050 BKN250 28/18 A3004 RMK AO2 SLP172 T02780178</raw_text>
+      <station_id>KLGA</station_id>
+      <observation_time>2019-07-10T13:51:00Z</observation_time>
+      <latitude>40.78</latitude>
+      <longitude>-73.88</longitude>
+      <temp_c>27.8</temp_c>
+      <dewpoint_c>17.8</dewpoint_c>
+      <wind_dir_degrees>310</wind_dir_degrees>
+      <wind_speed_kt>5</wind_speed_kt>
+      <visibility_statute_mi>10.0</visibility_statute_mi>
+      <altim_in_hg>30.041338</altim_in_hg>
+      <sea_level_pressure_mb>1017.2</sea_level_pressure_mb>
+      <quality_control_flags>
+        <auto_station>TRUE</auto_station>
+      </quality_control_flags>
+      <sky_condition sky_cover="FEW" cloud_base_ft_agl="5000" />
+      <sky_condition sky_cover="BKN" cloud_base_ft_agl="25000" />
+      <flight_category>VFR</flight_category>
+      <metar_type>SPECI</metar_type>
+      <elevation_m>11.0</elevation_m>
+    </METAR>
+    <METAR>
+      <raw_text>KEWR 101251Z 29005KT 10SM FEW045 BKN250 28/18 A3005 RMK AO2 SLP177 T02780183</raw_text>
+      <station_id>KEWR</station_id>
+      <observation_time>2019-07-10T12:51:00Z</observation_time>
+      <latitude>40.68</latitude>
+      <longitude>-74.17</longitude>
+      <temp_c>27.8</temp_c>
+      <dewpoint_c>18.3</dewpoint_c>
+      <wind_dir_degrees>290</wind_dir_degrees>
+      <wind_speed_kt>5</wind_speed_kt>
+      <visibility_statute_mi>10.0</visibility_statute_mi>
+      <altim_in_hg>30.050198</altim_in_hg>
+      <sea_level_pressure_mb>1017.7</sea_level_pressure_mb>
+      <quality_control_flags>
+        <auto_station>TRUE</auto_station>
+      </quality_control_flags>
+      <sky_condition sky_cover="FEW" cloud_base_ft_agl="4500" />
+      <sky_condition sky_cover="BKN" cloud_base_ft_agl="25000" />
+      <flight_category>VFR</flight_category>
+      <metar_type>SPECI</metar_type>
+      <elevation_m>7.0</elevation_m>
+    </METAR>
+    <METAR>
+      <raw_text>KJFK 101251Z 23006KT 10SM FEW038 BKN260 28/21 A3006 RMK AO2 SLP179 T02780206</raw_text>
+      <station_id>KJFK</station_id>
+      <observation_time>2019-07-10T12:51:00Z</observation_time>
+      <latitude>40.63</latitude>
+      <longitude>-73.77</longitude>
+      <temp_c>27.8</temp_c>
+      <dewpoint_c>20.6</dewpoint_c>
+      <wind_dir_degrees>230</wind_dir_degrees>
+      <wind_speed_kt>6</wind_speed_kt>
+      <visibility_statute_mi>10.0</visibility_statute_mi>
+      <altim_in_hg>30.059055</altim_in_hg>
+      <sea_level_pressure_mb>1017.9</sea_level_pressure_mb>
+      <quality_control_flags>
+        <auto_station>TRUE</auto_station>
+      </quality_control_flags>
+      <sky_condition sky_cover="FEW" cloud_base_ft_agl="3800" />
+      <sky_condition sky_cover="BKN" cloud_base_ft_agl="26000" />
+      <flight_category>VFR</flight_category>
+      <metar_type>METAR</metar_type>
+      <elevation_m>9.0</elevation_m>
+    </METAR>
+    <METAR>
+      <raw_text>KLGA 101251Z 00000KT 10SM FEW055 BKN250 27/17 A3005 RMK AO2 SLP175 T02670172</raw_text>
+      <station_id>KLGA</station_id>
+      <observation_time>2019-07-10T12:51:00Z</observation_time>
+      <latitude>40.78</latitude>
+      <longitude>-73.88</longitude>
+      <temp_c>26.7</temp_c>
+      <dewpoint_c>17.2</dewpoint_c>
+      <wind_dir_degrees>0</wind_dir_degrees>
+      <wind_speed_kt>0</wind_speed_kt>
+      <visibility_statute_mi>10.0</visibility_statute_mi>
+      <altim_in_hg>30.050198</altim_in_hg>
+      <sea_level_pressure_mb>1017.5</sea_level_pressure_mb>
+      <quality_control_flags>
+        <auto_station>TRUE</auto_station>
+      </quality_control_flags>
+      <sky_condition sky_cover="FEW" cloud_base_ft_agl="5500" />
+      <sky_condition sky_cover="BKN" cloud_base_ft_agl="25000" />
+      <flight_category>VFR</flight_category>
+      <metar_type>SPECI</metar_type>
+      <elevation_m>11.0</elevation_m>
+    </METAR>
+    <METAR>
+      <raw_text>KEWR 101151Z 22003KT 10SM FEW045 BKN250 25/19 A3006 RMK AO2 SLP179 T02500194 10250 20222 51009</raw_text>
+      <station_id>KEWR</station_id>
+      <observation_time>2019-07-10T11:51:00Z</observation_time>
+      <latitude>40.68</latitude>
+      <longitude>-74.17</longitude>
+      <temp_c>25.0</temp_c>
+      <dewpoint_c>19.4</dewpoint_c>
+      <wind_dir_degrees>220</wind_dir_degrees>
+      <wind_speed_kt>3</wind_speed_kt>
+      <visibility_statute_mi>10.0</visibility_statute_mi>
+      <altim_in_hg>30.059055</altim_in_hg>
+      <sea_level_pressure_mb>1017.9</sea_level_pressure_mb>
+      <quality_control_flags>
+        <auto_station>TRUE</auto_station>
+      </quality_control_flags>
+      <sky_condition sky_cover="FEW" cloud_base_ft_agl="4500" />
+      <sky_condition sky_cover="BKN" cloud_base_ft_agl="25000" />
+      <flight_category>VFR</flight_category>
+      <three_hr_pressure_tendency_mb>0.9</three_hr_pressure_tendency_mb>
+      <maxT_c>25.0</maxT_c>
+      <minT_c>22.2</minT_c>
+      <metar_type>METAR</metar_type>
+      <elevation_m>7.0</elevation_m>
+    </METAR>
+    <METAR>
+      <raw_text>KJFK 101151Z 25006KT 10SM FEW050 BKN260 25/21 A3007 RMK AO2 SLP182 T02500211 10250 20211 53012</raw_text>
+      <station_id>KJFK</station_id>
+      <observation_time>2019-07-10T11:51:00Z</observation_time>
+      <latitude>40.63</latitude>
+      <longitude>-73.77</longitude>
+      <temp_c>25.0</temp_c>
+      <dewpoint_c>21.1</dewpoint_c>
+      <wind_dir_degrees>250</wind_dir_degrees>
+      <wind_speed_kt>6</wind_speed_kt>
+      <visibility_statute_mi>10.0</visibility_statute_mi>
+      <altim_in_hg>30.070866</altim_in_hg>
+      <sea_level_pressure_mb>1018.2</sea_level_pressure_mb>
+      <quality_control_flags>
+        <auto_station>TRUE</auto_station>
+      </quality_control_flags>
+      <sky_condition sky_cover="FEW" cloud_base_ft_agl="5000" />
+      <sky_condition sky_cover="BKN" cloud_base_ft_agl="26000" />
+      <flight_category>VFR</flight_category>
+      <three_hr_pressure_tendency_mb>1.2</three_hr_pressure_tendency_mb>
+      <maxT_c>25.0</maxT_c>
+      <minT_c>21.1</minT_c>
+      <metar_type>METAR</metar_type>
+      <elevation_m>9.0</elevation_m>
+    </METAR>
+    <METAR>
+      <raw_text>KLGA 101151Z 32003KT 10SM BKN250 25/17 A3005 RMK AO2 SLP177 T02500172 10267 20233 53011</raw_text>
+      <station_id>KLGA</station_id>
+      <observation_time>2019-07-10T11:51:00Z</observation_time>
+      <latitude>40.78</latitude>
+      <longitude>-73.88</longitude>
+      <temp_c>25.0</temp_c>
+      <dewpoint_c>17.2</dewpoint_c>
+      <wind_dir_degrees>320</wind_dir_degrees>
+      <wind_speed_kt>3</wind_speed_kt>
+      <visibility_statute_mi>10.0</visibility_statute_mi>
+      <altim_in_hg>30.050198</altim_in_hg>
+      <sea_level_pressure_mb>1017.7</sea_level_pressure_mb>
+      <quality_control_flags>
+        <auto_station>TRUE</auto_station>
+      </quality_control_flags>
+      <sky_condition sky_cover="BKN" cloud_base_ft_agl="25000" />
+      <flight_category>VFR</flight_category>
+      <three_hr_pressure_tendency_mb>1.1</three_hr_pressure_tendency_mb>
+      <maxT_c>26.7</maxT_c>
+      <minT_c>23.3</minT_c>
+      <metar_type>METAR</metar_type>
+      <elevation_m>11.0</elevation_m>
+    </METAR>
+  </data>
+</response>
+

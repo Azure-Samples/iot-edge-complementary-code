@@ -1,0 +1,39 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "build CompressionModule",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "build",
+                "${workspaceFolder}/modules/CompressionModule/CompressionModule.csproj"
+            ],
+            "problemMatcher": "$tsc"
+        },
+        {
+            "label": "build MessageSimulatorModule",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "build",
+                "${workspaceFolder}/modules/MessageSimulatorModule/MessageSimulatorModule.csproj"
+            ],
+            "problemMatcher": "$tsc",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        },
+        {
+            "label": "test",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "test",
+                "${workspaceFolder}../../shared/CompressionTests/CompressionTests.csproj"
+            ],
+            "problemMatcher": "$tsc"
+        }
+    ]
+}
