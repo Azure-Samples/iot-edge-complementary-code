@@ -1,0 +1,15 @@
+FROM node:10-alpine 
+
+COPY /shared/compression /app/shared/compression
+
+COPY /edge/modules/CompressionModule/package*.json /app/edge/modules/CompressionModule/
+
+WORKDIR /app/edge/modules/CompressionModule/
+
+RUN npm install --production
+
+COPY /edge/modules/CompressionModule/app.js /app/edge/modules/CompressionModule/
+
+USER node
+
+CMD ["node", "app.js"]
