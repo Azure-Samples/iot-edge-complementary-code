@@ -1,5 +1,5 @@
 {
-    "name": "CompressionFunctionApp",
+    "name": "CompressionFnc",
     "version": "0.0.1",
     "dependencies": {
         "@azure/event-hubs": "^1.0.8",
