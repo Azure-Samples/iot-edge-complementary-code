@@ -111,19 +111,15 @@ The method for sharing Complementary code between an Azure IoT Edge module and a
 
 Node.js application typically share code via npm packages.  Packages are usually  published to package registries, either the public [npm registry](https://www.npmjs.com/) or a private registry.  A JavaScript file can also simply reference code in another file, even if its not installed as a node package.  However, this is not considered good practice since the file dependency isn't reflected in the *package.json* file.  
 
-As of npm version 2.0.0, it's possible to reference a local npm package on the file system directly - without the need for a package registry.  The *CompressionModule* uses a *file://* package reference to leverage code in the *compression* library project, located in the *shared/compression* folder.  Below is the package.json from the *CompressionModule*:
+As of npm version 2.0.0, it's possible to reference a local npm package on the file system directly - without the need for a package registry.  The *CompressionFnc* uses a *file://* package reference to leverage code in the *compression* library project, located in the *shared/compression* folder.  Below is the package.json from the *CompressionFnc*:
 
 ```json
 {
-    "name": "compression-module",
+    "name": "CompressionFnc",
     "version": "0.0.1",
     "dependencies": {
-        "azure-iot-device": "^1.9.9",
-        "azure-iot-device-mqtt": "^1.9.9",
-        "compression": "file:../../../shared/compression"
-    },
-    "devDependencies": {
-        "eslint": "^6.1.0"
+        "@azure/event-hubs": "^1.0.8",
+        "compression": "file:../shared/compression"
     }
 }
 ```
