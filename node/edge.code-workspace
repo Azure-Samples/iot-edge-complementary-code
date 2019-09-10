@@ -1,0 +1,14 @@
+{
+	"folders": [
+		{
+			"path": "edge"
+		},
+		{
+			"path": "shared"
+		},
+		{
+			"path": "messages"
+		}
+	],
+	"settings": {}
+}

@@ -1,0 +1,8 @@
+{
+    "name": "CompressionFnc",
+    "version": "0.0.1",
+    "dependencies": {
+        "@azure/event-hubs": "^1.0.8",
+        "compression": "file:../shared/compression"
+    }
+}
