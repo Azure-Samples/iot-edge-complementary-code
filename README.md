@@ -107,7 +107,7 @@ The edge and cloud samples are designed to be built and run together on a develo
 
     Azure Blob Storage is required for the Azure Functions runtime for internal state management.  The Azure Function in this sample also writes decompressed messages to an Azure Storage account. 
 
-    When running this sample locally on **Windows**, the Azure Storage Emulator can be used instead of creating an Azure Storage account.
+    When running this sample locally on **Windows**, the Azure Storage Emulator can be used instead of creating an Azure Storage account.  The emulator will not work with **WSL** or **Linux** and a real storage account will be needed.
 
 8. Azure Storage Explorer (optional)
 
