@@ -68,7 +68,7 @@ The edge and cloud samples are designed to be built and run together on a develo
 
     Install [Visual Studio Code](https://code.visualstudio.com/) first and then add the following extensions:
 
-    - [C# extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode.csharp) (only required for C# version of sample) - provides C# syntax checking, build and debug support
+    - [C# extension](https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.csharp) (only required for C# version of sample) - provides C# syntax checking, build and debug support
     - [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) (only required for Node.js version of sample) - provides JavaScript syntax checking
     - [Azure IoT Tools](https://marketplace.visualstudio.com/items?itemName=vsciot-vscode.azure-iot-tools) - provides Azure IoT Edge development tooling
 
