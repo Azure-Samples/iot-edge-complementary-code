@@ -117,7 +117,7 @@ The edge and cloud samples are designed to be built and run together on a develo
 
 1. Azure IoT Hub Service
 
-    To run the samples, you will need an Azure subscription and a provisioned Azure IoT Hub service.. Every Azure subscription allows one free F1 tier Azure IoT Hub.  The F1 tier Azure IoT is sufficient for this sample. 
+    To run the samples, you will need an Azure subscription and a provisioned Azure IoT Hub service. Every Azure subscription allows one free F1 tier Azure IoT Hub.  The F1 tier Azure IoT is sufficient for this sample. 
 
     [Create an IoT hub using the Azure portal](https://docs.microsoft.com/en-us/azure/iot-hub/quickstart-send-telemetry-dotnet#create-an-iot-hub)
 
