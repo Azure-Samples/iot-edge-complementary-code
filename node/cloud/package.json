@@ -2,7 +2,7 @@
     "name": "CompressionFnc",
     "version": "0.0.1",
     "dependencies": {
-        "@azure/event-hubs": "^1.0.8",
+        "@azure/event-hubs": "^5.3.0",
         "compression": "file:../shared/compression"
     }
 }
