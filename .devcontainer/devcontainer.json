@@ -19,7 +19,9 @@
 				"dbaeumer.vscode-eslint",
 				"ms-dotnettools.csharp",
 				"ms-python.python",
-				"ms-python.vscode-pylance"
+				"ms-python.vscode-pylance",
+				"ms-azuretools.vscode-azurefunctions",
+				"vsciot-vscode.azure-iot-tools"
 			]
 		}
 	},
