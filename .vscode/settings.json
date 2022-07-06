@@ -1,0 +1,8 @@
+{
+    "azureFunctions.projectSubpath": "csharp\\cloud",
+    "azureFunctions.deploySubpath": "csharp\\cloud/bin/Release/netcoreapp2.1/publish",
+    "azureFunctions.projectLanguage": "C#",
+    "azureFunctions.projectRuntime": "~2",
+    "debug.internalConsoleOptions": "neverOpen",
+    "azureFunctions.preDeployTask": "publish (functions)"
+}

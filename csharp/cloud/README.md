@@ -9,7 +9,7 @@ products:
 
 # Complementary Code pattern sample - .NET/C# *cloud* workspace
 
-This is the README file for the C# *cloud* Visual Studio workspace (*cloud.code-workspace*), part of the C#/.NET Core version of the Complementary Code Pattern sample.  It is intended to be built and run with the companion code in the *edge* workspace (*edge.code-workspace*) located in the same folder.  Both workspaces can be open simultaneously in different instances of Visual Studio Code.
+This is the README file for the C# *cloud* Visual Studio workspace (*cloud.code-workspace*), part of the C#/.NET Core version of the Complementary Code Pattern sample.  It is intended to be built and run with the companion code in the *edge* workspace (*edge.code-workspace*) located in the same folder.  Both workspaces can be opened simultaneously in different instances of Visual Studio Code.
 
 The top level [README.md](../../README.md) in this repository provides an overview of the Complementary Code sample, including an architecture diagram, along with prerequisites for building and running the sample code.
 
@@ -25,7 +25,7 @@ This workspace contains 2 folders:
 
 - *cloud* - This folder contains an Azure Functions project which builds the Azure Function (*CompressionFnc*) shown in the architecture diagram.  The *CompressionFnc* serves as the cloud complement to the Azure IoT Edge compression module (*CompressionModule*).  It demonstrates decompressing a compressed message which sent from the *CompressionModule* through your Azure IoT Edge Hub service and writing the decompressed message to Azure Blob Storage.
 
-- *shared* - This folder contains two .NET library projects which are use in both the *edge* and *cloud* workspaces - *Compression* and *CompressionTests*.  
+- *shared* - This folder contains two .NET library projects which are used in both the *edge* and *cloud* workspaces - *Compression* and *CompressionTests*.  
 
    *Compression* is a .NET Standard library project, used in both the Azure IoT Edge solution in the *edge* workspace and the Azure Functions project in the *cloud* workspace.  The *Compression* library itself is very simple and is intended for demonstration of the Complementary Code pattern.  It leverages the *GZipStream* compression class, included in the .NET Core Framework. 
    
@@ -46,8 +46,8 @@ After installing prerequisites, there is one additional step to configure your d
 The *CompressionFnc* receives compressed messages from your Azure IoT Hub service via the [Azure Functions IoT Hub binding](https://docs.microsoft.com/en-us/azure/azure-functions/functions-bindings-event-iot).  Azure Functions accesses Azure IoT Hub messages at the the Azure IoT Hub's built-in [Event Hub compatible endpoint](https://docs.microsoft.com/en-us/azure/iot-hub/iot-hub-devguide-messages-read-builtin#read-from-the-built-in-endpoint).  *IoTHubEventHubEndpoint* is the connection string for the Azure IoT Hub's Event Hub compatible endpoint.  It can be found in the Azure Portal: 
 
 1. Sign in to the [Azure portal](https://portal.azure.com/) and navigate to your IoT hub
-2. Click *Built-in endpoints*
-3. Copy the value of  *Event Hub-compatible endpoint* under *Events*
+2. Click *Built-in endpoints* under Hub settings
+3. Copy the value of  *Event Hub-compatible endpoint*
 
 The *CompressionFnc* decompresses messages and writes them to an Azure Blob Storage account using the [Azure Functions Blob Storage binding](https://docs.microsoft.com/en-us/azure/azure-functions/functions-bindings-storage-blob).  The last connection string, *OutputBlobConnectionString* is the connection string of an Azure Blob Storage account where the *CompressionFnc* will write decompressed messages received from your Azure IoT Hub.  
 
@@ -55,7 +55,7 @@ The *CompressionFnc* decompresses messages and writes them to an Azure Blob Stor
 
 Connection strings and other secrets should not be stored in application code or any file that is checked into source control.   The recommended way to pass connection string and other secrets to an Azure Function is through environment variables.  
 
-Azure Function bindings can implicitly access connection string via environment variables , as shown in the *CompressionFnc* code below which references the *IoTHubEventHubEndpoint* and *OutputBlobConnectionString* environment variables:
+Azure Function bindings can implicitly access a connection string via environment variables, as shown in the *CompressionFnc* code below which references the *IoTHubEventHubEndpoint* and *OutputBlobConnectionString* environment variables:
 
 
 ```csharp
@@ -74,7 +74,7 @@ Environment variables are set differently for local development with the Azure F
 
 When you deploy your function to your Azure Functions App service, environment variables, including connection strings, are configured as [Azure Functions applications settings](https://docs.microsoft.com/en-us/azure/azure-functions/functions-bindings-storage-blob) in the Azure Portal.  Azure Functions application settings are encrypted, stored and managed by the Azure App Service platform, which hosts Azure Functions.  
 
-When running Azure Functions in your local development environment with the Azure Functions Core Tools, environment variables are set in a special development-only settings file, *local.settings.json*.  Since this file contains secrets, it should always be excluded from source control. Therefore, it is included in *.gitignore* in this sample repo.  A template *local.settings.json.temp* is provided as a template, which can be renamed to *local.settings.json*.  After renaming, update the *AzureWebJobsStorage* and *OutputBlobConnectionString* values to either the Emulator connection string or the connection string for the Azure Storage account you created during the prerequisite step.  Update the *IoTHubEventHubEndpoint* to value you copied earlier in this section.
+When running Azure Functions in your local development environment with the Azure Functions Core Tools, environment variables are set in a special development-only settings file, *local.settings.json*.  Since this file contains secrets, it should always be excluded from source control. Therefore, it is included in *.gitignore* in this sample repo.  A template *local.settings.json.temp* is provided as a template, which can be copied and/or renamed to *local.settings.json*.  After renaming, update the *AzureWebJobsStorage* and *OutputBlobConnectionString* values to either the Emulator connection string or the connection string for the Azure Storage account you created during the prerequisite step.  Update the *IoTHubEventHubEndpoint* to value you copied earlier in this section.
 
 > **Note:** The Visual Studio Code Azure Functions extension can optionally publish your *local.settings.json* values to your Azure Function App after you deploy, using the instructions in [Publish application settings](https://docs.microsoft.com/en-us/azure/azure-functions/functions-develop-vs-code#publish-application-settings).   However, be sure not to publish application settings which use the Azure Storage Emulator.  The Azure Storage Emulator setting (*UseDevelopmentStorage=true*) will cause an error when your function executes in your Azure Function App.   Also, you will get a warning that there is already a *AzureWebJobsStorage* setting that was setup as part of the Azure Function App creation.  If you use different Azure Storage account for local development and your Azure Function App, each will maintain their own cursor reading messages from your Azure IoT Hub.
 
@@ -82,9 +82,9 @@ When running Azure Functions in your local development environment with the Azur
 
 This section provides instructions for building and running the sample in the Azure Functions local runtime.  The sample can also be pushed to your Azure Function App by following the instructions in the article [Publish the project to Azure](https://docs.microsoft.com/en-us/azure/azure-functions/functions-create-first-function-vs-code#publish-the-project-to-azure).
 
-There are several Visual Studio Code tasks created by the Azure Functions extension - *build*, *clean release*, *publish* and *func*. The *func* task will run your functions locally in the Azure Functions Core Tools.  To run these tasks, search for *Tasks: Run Task* from the Visual Studio Code command palette and select the from the task list.
+There are several Visual Studio Code tasks created by the Azure Functions extension - *build*, *clean release*, *publish* and *func*. The *func* task will run your functions locally in the Azure Functions Core Tools.  To run these tasks, search for *Tasks: Run Task* from the Visual Studio Code command palette and select the task from the task list.
 
-The easiest way to run your functions is to simply start your functions in the Visual Studio Code debugger.   Select the Debug icon in the Activity Bar on the side of Visual Studio Code.  You should see *Attach to C# Functions* in the Debug configuration dropdown. Start your debug session by pressing F5 or selecting the play button next to the Configuration dropdown.
+The easiest way to run your functions is to simply start your functions in the Visual Studio Code debugger.   Select the Debug icon in the Activity Bar on the side of Visual Studio Code.  You should see *Attach to .NET Functions* in the Debug configuration dropdown. Start your debug session by pressing F5 or selecting the play button next to the Configuration dropdown.
 
 You should see Azure Functions local runtime status messages in the Visual Studio Code integrated terminal.  Once the *CompressionFnc* starts reading messages from your Azure IoT Hub, you should see output showing the decompressed messages.  The messages are several aviation weather reports for New York area airports in XML format.
 
