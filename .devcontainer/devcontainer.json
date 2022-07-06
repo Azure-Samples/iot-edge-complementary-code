@@ -21,7 +21,9 @@
 				"ms-python.python",
 				"ms-python.vscode-pylance",
 				"ms-azuretools.vscode-azurefunctions",
-				"vsciot-vscode.azure-iot-tools"
+				"vsciot-vscode.azure-iot-tools",
+				"vsciot-vscode.azure-iot-edge",
+				"vsciot-vscode.azure-iot-toolkit"
 			]
 		}
 	},
