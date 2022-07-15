@@ -1,5 +1,5 @@
 {
-  "azureFunctions.projectRuntime": "~2",
+  "azureFunctions.projectRuntime": "~4",
   "azureFunctions.projectLanguage": "JavaScript",
   "azureFunctions.templateFilter": "Verified",
   "azureFunctions.deploySubpath": ".",

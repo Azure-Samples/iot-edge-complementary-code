@@ -54,7 +54,7 @@ There are two Visual Studio Code workspace files, _edge.code-workspace_ and _clo
 The edge and cloud samples are designed to be built and run together on a development machine in Visual Studio Code using Docker CE, the Azure IoT EdgeHub Dev Tool and the Azure Functions Core Tools. Below are the prerequisites to build and run the sample on a local development machine: 
 
 1. Language SDK's
-    - [.NET Core SDK (2.1 or above)](https://www.microsoft.com/net/download) - only required for C# version of sample
+    - [.NET Core SDK (3.1 or above)](https://www.microsoft.com/net/download) - only required for C# version of sample
     - [Node.js (8.5 or above)](https://nodejs.org) - required for Node version of sample and the Azure Functions Core Tools.
     - [Python (2.7/3.6 or above) and Pip](https://www.python.org/) - required for Azure IoT EdgeHub Dev Tool. **Windows users should select the option to add Python to the path.**
 
@@ -74,7 +74,7 @@ The edge and cloud samples are designed to be built and run together on a develo
 
         > **Note**: Azure IoT Tools is an extension pack that installs 3 extensions that will show up in the Extensions pane in Visual Studio Code - *Azure IoT Hub Toolkit*, *Azure IoT Edge* and *Azure IoT Workbench*.
 
-    - [Azure Functions](https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-azurefunctions)
+    - [Azure Functions (4.0 or above)](https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-azurefunctions)
  
 4. ESLint (optional)
 
@@ -186,7 +186,7 @@ The edge and cloud samples are designed to be built and run together on a develo
 
    Again, there are 2 ways to create setup the Azure IoT Edge Simulator from within Visual Studio Code 
 
-   Open the palette and search for *Azure IoT Edge: Setup IoT Edge Simulator*.  After selecting the command, a list of devices is displayed.  Select the device you created in the previous step. 
+   Open the command palette and search for *Azure IoT Edge: Setup IoT Edge Simulator*.  After selecting the command, a list of devices is displayed.  Select the device you created in the previous step. 
 
     **or**
 
@@ -198,8 +198,8 @@ The edge and cloud samples are designed to be built and run together on a develo
    
 5. Set environment variables
 
-   The Azure IoT Edge solution deployment manifests (*deployment.template.json* and *deployment.debug.template.json*) and module metadata files (*module.json*) support environment variable substitution.  There are 3 environment variable placeholders used in this sample - *$CONTAINER_REGISTRY_USERNAME*, *$CONTAINER_REGISTRY_PASSWORD* and *$CONTAINER_REGISTRY_ADDRESS*.  These are used to specify your container registry address and login credentials.  To run the code in the Azure IoT Edge Simulator, the *$CONTAINER_REGISTRY_ADDRESS* can be set to the Docker local registry container value of *localhost:5000*.  When using the local registry container value, the $CONTAINER_REGISTRY_USERNAME and $CONTAINER_REGISTRY_PASSWORD are not used.  However, since they are defined in the deployment manifests, they must be defined in order to avoid the "Please set registry credential to .env file." warning message on initial load.  
-   To protect secrets, *.env* files should not be included in source control. Therefore, this sample includes a *.env.temp* template file that can be renamed to *.env*  or the values can be copied to your .env file.  To build and run the sample in the Azure IoT Edge Simulator, the following values can be used:
+   The Azure IoT Edge solution deployment manifests (*deployment.template.json* and *deployment.debug.template.json*) and module metadata files (*module.json*) support environment variable substitution.  You can locate these manifest files inside the _edge_ folder underneath the _csharp_ and _node_ root folders. <There are 3 environment variable placeholders used in this sample - *$CONTAINER_REGISTRY_USERNAME*, *$CONTAINER_REGISTRY_PASSWORD* and *$CONTAINER_REGISTRY_ADDRESS*.  These are used to specify your container registry address and login credentials.  To run the code in the Azure IoT Edge Simulator, the *$CONTAINER_REGISTRY_ADDRESS* can be set to the Docker local registry container value of *localhost:5000*.  When using the local registry container value, the $CONTAINER_REGISTRY_USERNAME and $CONTAINER_REGISTRY_PASSWORD are not used.  However, since they are defined in the deployment manifests, they must be defined in order to avoid the "Please set registry credential to .env file." warning message on initial load.  
+   To protect secrets, *.env* files should not be included in source control. Therefore, this sample includes a *.env.temp* template file inside the _edge_ folder that can be renamed to *.env* or the values can be copied to your .env file inside the corresponding _csharp_ and _node_ root folders.  To build and run the sample in the Azure IoT Edge Simulator, the following values can be used:
 
    ```
    CONTAINER_REGISTRY_ADDRESS=localhost:5000

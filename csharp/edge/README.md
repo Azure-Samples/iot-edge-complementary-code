@@ -40,7 +40,7 @@ This workspace contains 3 folders:
 | `shared`          | shared compression library and unit tests  |
 | `messages`        | test messages                              |
 
-- edge - This folder contains an Azure IoT Edge solution which consists of the two IoT Edge modules shown in the architecture diagram - the compression module (*CompressionModule*) and a message simulator module (*MessageSimulatorModule*).  The *MessageSimulatorModule* generates messages which are compressed by the *CompressionModule* and forwarded to to your Azure IoT Hub service.
+- edge - This folder contains an Azure IoT Edge solution which consists of the two IoT Edge modules shown in the architecture diagram - the compression module (*CompressionModule*) and a message simulator module (*MessageSimulatorModule*).  The *MessageSimulatorModule* generates messages which are compressed by the *CompressionModule* and forwarded to your Azure IoT Hub service.
 
     The *CompressionModule* is designed to illustrate the Complementary Code pattern to share logic between Edge components and the Cloud.  The *CompressionModule* project file references the *Compression* .NET library, located in the *shared/Compression* folder. 
 
@@ -64,7 +64,7 @@ After installing prerequisites, make sure to follow the instructions in the [Edg
 
 ## Running the sample
 
-This section provides instructions for building building and running the sample in the Simulator, and optionally attaching the Visual Studio Code debugger to the running modules.  The sample can also be pushed to your container registry and deployed to actual Edge device, by following the instructions in the [Tutorial: Develop a C# IoT Edge module for Linux devices](https://docs.microsoft.com/en-us/azure/iot-edge/tutorial-csharp-module).
+This section provides instructions for building and running the sample in the Simulator, and optionally attaching the Visual Studio Code debugger to the running modules.  The sample can also be pushed to your container registry and deployed to an actual Edge device, by following the instructions in the [Tutorial: Develop a C# IoT Edge module for Linux devices](https://docs.microsoft.com/en-us/azure/iot-edge/tutorial-csharp-module).
 
 
 1. Set module to debug mode (optional)
@@ -99,7 +99,7 @@ This section provides instructions for building building and running the sample 
             }
       ```
    
-    - Set a breakpoint in Visual Studio code
+    - Set a breakpoint in Visual Studio Code
    
       To set a debugger breakpoint, highlight the code line and press F9 key, or click to the left of the line number.  Breakpoints can be set on any code after the debugger wait code.
    
